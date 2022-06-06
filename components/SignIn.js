@@ -47,7 +47,7 @@ export default function SignIn() {
 
         <p>
           <i>
-            (we check to see if you are a member of the stateful.art discord when
+            (we check to see if you are a member of the JUSTADDMETA discord when
             you try to mint).
           </i>
         </p>

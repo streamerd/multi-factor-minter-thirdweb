@@ -120,7 +120,7 @@ export default function Home() {
           <div className={`${styles.main} ${styles.spacerTop}`}>
             <h3>Hey {session?.user?.name} 👋</h3>
             <h4>
-              Thanks for being part of <strong> stateful.art</strong> family
+              Thanks for being part of <strong> JUSTADDMETA</strong> family
             </h4>
             <p>here are some nfts you can mint.</p>
 

@@ -59,7 +59,7 @@ export default async function generateNftSignature(req, res) {
   const signedPayload = await nftCollection.signature.generate({
     to: claimerAddress,
     metadata: {
-      name: `${session.user.name}'s stateful.art discord member NFT`,
+      name: `${session.user.name}'s JUSTADDMETA discord member NFT`,
       // image: `${session.user.image}`,
       image: "https://avatars.githubusercontent.com/u/97170049?s=400&u=d0e11ba3c9e71fccddc3c79c65d8d20b7dc27526&v=4",
       description: `An NFT rewarded to ${session.user.name} for being a part of the start community!`,
