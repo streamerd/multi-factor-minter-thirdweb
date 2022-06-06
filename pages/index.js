@@ -96,7 +96,7 @@ export default function Home() {
       <hr className={styles.divider} />
 
       <p className={styles.explain}>
-       After walllet connection, you'll be asked to login with your discord.  
+       After walllet connection, you will be asked to login with your discord.  
       </p>
 
       <p className={styles.explain}>
