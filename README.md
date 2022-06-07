@@ -2,7 +2,7 @@
 
 ## Introduction
 
-In this guide, we will utilize [signature-based minting](https://portal.thirdweb.com/python/erc721-signature-minting) of NFTs as a mechanism to reward community members of JUSTADDMETA. 
+In this guide, we will utilize [signature-based minting](https://portal.thirdweb.com/python/erc721-signature-minting) of NFTs as a mechanism to reward employees of JUSTADDMETA. 
 
 We connect user's with their Discord account, and generate signatures for an NFT if the user is a **member** of the JUSTADDMETA Discord server.
 
