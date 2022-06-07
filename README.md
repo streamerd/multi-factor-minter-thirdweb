@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In this guide, we will utilize [signature-based minting with thirdweb sdk](https://portal.thirdweb.com/python/erc721-signature-minting) of NFTs as a mechanism to appreciate members of JUSTADDMETA org on their discord. 
+A[signature-based minting with thirdweb sdk](https://portal.thirdweb.com/python/erc721-signature-minting), multi-factor auth'ed minter dapp to appreciate the members of JUSTADDMETA community on discord. 
 
-We connect user's with their Discord account, and generate signatures for an NFT if the user is a **member** of the JUSTADDMETA server and have a specific role we'd set, by role's id @ discord.
+Via this dapp, first we are connecting users with their Discord account, and generate signatures for an NFT (to claim there), if the user is a **member** @ JUSTADDMETA's discord server **and** have a specific role we'd set, by role's id @ discord.
 
 So it is a multi-factor authenticated minter app, reflecting its social formations as well.
 
