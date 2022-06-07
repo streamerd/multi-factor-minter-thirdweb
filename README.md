@@ -172,20 +172,25 @@ Now when we call `useSession` or `getSession`, we have access to the `accessToke
 
 Before the user see's the mint button, we make a check to see if the user is a member of the Discord server, using Next.js API Routes.
 
-This logic is performed on the [pages/api/check-is-in-server.js](pages/api/check-is-in-server.js) file.
+This logic is performed on the [pages/api/check-has-role-in-server.js](pages/api/check-has-role-in-server.js) file.
 
 First, we get the user's accessToken from the session.
 
 We use this accessToken to request which servers the user is a member of.
 
 ```jsx
+// Let's provide a discord server id. We need to switch to developer view on discord to view server aka. guild id.
+// Here's how: https://www.alphr.com/discord-find-server-id/
+const discordServerId = "";
 // Get the Next Auth session so we can use the accessToken as part of the discord API request
 const session = await getSession({ req });
 // Read the access token from the session
 const accessToken = session?.accessToken;
 
-// Make a request to the Discord API to get the servers this user is a part of
-const response = await fetch(`https://discordapp.com/api/users/@me/guilds`, {
+
+
+// Make a request to the Discord API to get the servers this user has a certain role. /api/check-has-role-in-server 
+const response = await fetch(`https://discordapp.com/api/users/@me/guilds/${discordServerId}/member`, {
   headers: {
     Authorization: `Bearer ${accessToken}`,
   },
@@ -199,15 +204,15 @@ Now we have all the servers the user is a member of inside the `data` variable. 
 
 ```jsx
 // well, we're using our serverId
-const discordServerId = "882215214894940170";
+const discordServerId = "";
 
 // Filter all the servers to find the one we want
 // Returns undefined if the user is not a member of the server
 // Returns the server object if the user is a member
-const jamDiscordMembership = data?.find(
-  (server) => server.id === discordServerId
-);
+  const jamDiscordMembership = data.roles?.find(
+    (role) => role.id === "960299282156625940" // Peace Maker
+  );
 
 // Return undefined or the server object to the client.
-res.status(200).json({ jamMembership: jamDiscordMembership });
+  res.status(200).json({ jamMembership: jamDiscordMembership ?? undefined });
 ```
