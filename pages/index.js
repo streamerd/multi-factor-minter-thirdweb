@@ -35,12 +35,19 @@ export default function Home() {
     if (session) {
       setLoading(true);
       // Load the check to see if the user  and store it in state
-      fetch("api/check-is-in-server")
-        .then((res) => res.json())
-        .then((d) => {
-          setData(d || undefined);
-          setLoading(false);
-        });
+      // fetch("api/check-is-in-server")
+      //   .then((res) => res.json())
+      //   .then((d) => {
+      //     setData(d || undefined);
+      //     setLoading(false);
+      //   });
+
+      fetch("api/check-has-role-in-server")
+      .then((res) => res.json())
+      .then((d) => {
+        setData(d || undefined);
+        setLoading(false);
+      });
     }
   }, [session]);
 
