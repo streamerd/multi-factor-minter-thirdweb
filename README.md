@@ -2,11 +2,11 @@
 
 ## Introduction
 
-In this guide, we will utilize [signature-based minting](https://portal.thirdweb.com/python/erc721-signature-minting) of NFTs as a mechanism to reward employees of JUSTADDMETA. 
+In this guide, we will utilize [signature-based minting](https://portal.thirdweb.com/python/erc721-signature-minting) of NFTs as a mechanism to appreciate members of JUSTADDMETA org on their discord. 
 
-We connect user's with their Discord account, and generate signatures for an NFT if the user is a **member** of the JUSTADDMETA Discord server.
+We connect user's with their Discord account, and generate signatures for an NFT if the user is a **member** of the JUSTADDMETA server and have a specific role we'd set, by role's id @ discord.
 
-So it is a multi-factor authenticated minter app.
+So it is a multi-factor authenticated minter app, reflecting its social formations as well.
 
 ## Tools used for JAM Alpha Minting event app:
 
