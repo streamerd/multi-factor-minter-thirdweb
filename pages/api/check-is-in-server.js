@@ -4,8 +4,6 @@ export default async function checkIsInServer(req, res) {
   // Get the Next Auth session so we can use the accessToken as part of the discord API request
   const session = await getSession({ req });
 
-  console.log("Session:", session);
-
   // Put Your Discord Server ID here
   const discordServerId = "882215214894940170";
   // Read the access token from the session

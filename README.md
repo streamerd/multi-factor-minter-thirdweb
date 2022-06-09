@@ -8,6 +8,14 @@ We connect user's with their Discord account, and generate signatures for an NFT
 
 So it is a multi-factor authenticated minter app, reflecting its social formations as well.
 
+Here are how we'll extend thirdweb's sdk via customizing their contracts as well:
+https://portal.thirdweb.com/contracts
+
+for that, we will use @thirdweb-dev/contracts. including like this:
+
+`npm i @thirdweb-dev/contracts --save`
+
+
 ## Tools used for JAM Alpha Minting event app:
 
 - [**thirdweb React SDK**](https://docs.thirdweb.com/react): To connect to our NFT Collection Smart contract via React hooks such as [useNFTCollection](https://docs.thirdweb.com/react/react.usenftcollection), and allow users to sign in with [useMetamask](https://docs.thirdweb.com/react/react.usemetamask).
