@@ -31,7 +31,7 @@ export default function SignIn() {
   if (!session) {
     return (
       <div className={`${styles.main}`}>
-        <h2 className={styles.noGapBottom}> let's jam </h2>
+        <h2 className={styles.noGapBottom}> let&apos;s jam </h2>
 
         <Paragraph margin={"large"}>
           <Text weight={"bolder"} size="xlarge">
