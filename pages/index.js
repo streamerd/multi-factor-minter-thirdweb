@@ -97,28 +97,24 @@ export default function Home() {
   return (
     <div>
       <Box background={"black"} direction="row">
-       <Box alignSelf="start" >
-       <Heading color={"white"} margin="medium">
-          JAM
-        </Heading>
-       </Box>
-        <Box alignSelf="end">
-          <Box>{"|>"} Alpha Minting event @ x.y.22</Box>
-          <Box background={"red"}>.</Box>
+        <Box alignSelf="start">
+          <Heading color={"white"} margin="medium">
+            JUSTADDMETA
+          </Heading>
         </Box>
-        {/* <Box background={"orange"} width="medium" >.</Box> */}
-
+        <Box alignSelf="end">
+          <Box
+            background={"red"}
+            width="xsmall"
+            height="xxsmall"
+            alignSelf="end"
+          ></Box>
+          <Box>{"|>"} Alpha Minting @ x.y.22</Box>
+        </Box>
+        <Box direction="column"></Box>
       </Box>
 
-     
-      <h3 className={`${styles.h2} ${styles.uniqueTextLine1}`}>
-        Something unique,
-      </h3>
-      <h3 className={`${styles.h2} ${styles.uniqueTextLine2}`}>
-        something real
-      </h3>
-
-      <SignIn/>
+      <SignIn />
       <hr className={styles.divider} />
 
       {address && session ? (
