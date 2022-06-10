@@ -12,6 +12,8 @@
     "@thirdweb-dev/react": "^2",
     "@thirdweb-dev/sdk": "^2",
     "ethers": "^5.6.8",
+    "grommet": "^2.24.0",
+    "grommet-icons": "^4.7.0",
     "next": "^12.1.6",
     "next-auth": "^4.3.4",
     "react": "^18.1.0",

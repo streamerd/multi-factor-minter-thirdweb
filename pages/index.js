@@ -10,6 +10,8 @@ import { useState, useEffect } from "react";
 import SignIn from "../components/SignIn";
 import styles from "../styles/Theme.module.css";
 
+import { Box, Card, Heading, Paragraph } from "grommet";
+
 export default function Home() {
   // Grab the currently connected wallet's address
   const address = useAddress();
@@ -43,11 +45,11 @@ export default function Home() {
       //   });
 
       fetch("api/check-has-role-in-server")
-      .then((res) => res.json())
-      .then((d) => {
-        setData(d || undefined);
-        setLoading(false);
-      });
+        .then((res) => res.json())
+        .then((d) => {
+          setData(d || undefined);
+          setLoading(false);
+        });
     }
   }, [session]);
 
@@ -93,31 +95,30 @@ export default function Home() {
   }
 
   return (
-    <div className={styles.container}>
-            <h1 className={styles.h1}>JUSTADDMETA</h1>
-   
+    <div>
+      <Box background={"black"} direction="row">
+       <Box alignSelf="start" >
+       <Heading color={"white"} margin="medium">
+          JAM
+        </Heading>
+       </Box>
+        <Box alignSelf="end">
+          <Box>{"|>"} Alpha Minting event @ x.y.22</Box>
+          <Box background={"red"}>.</Box>
+        </Box>
+        {/* <Box background={"orange"} width="medium" >.</Box> */}
 
-      <hr className={styles.divider} />
+      </Box>
 
-      <SignIn />
-      <hr className={styles.divider} />
-
-      <p className={styles.explain}>
-       After walllet connection, you will be asked to login with your discord.  
-      </p>
-
-      <p className={styles.explain}>
-      If you are @ our discord server, you can mint an NFT.
-      </p>
-      <hr className={styles.divider} />
-      
-
+     
       <h3 className={`${styles.h2} ${styles.uniqueTextLine1}`}>
-      Something unique, 
+        Something unique,
       </h3>
       <h3 className={`${styles.h2} ${styles.uniqueTextLine2}`}>
-      something real
+        something real
       </h3>
+
+      <SignIn/>
       <hr className={styles.divider} />
 
       {address && session ? (

@@ -1,4 +1,5 @@
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import { Box, Button, Paragraph, Text } from "grommet";
 import { useSession, signIn, signOut } from "next-auth/react";
 import React from "react";
 import styles from "../styles/Theme.module.css";
@@ -26,55 +27,52 @@ export default function SignIn() {
     );
   }
 
-
   // 2. Connect with Discord (OAuth)
   if (!session) {
     return (
       <div className={`${styles.main}`}>
-        <h2 className={styles.noGapBottom}>Sign In with Discord</h2>
-        {/* <p>
-          👋{" "}
-          <i>
-            Hey,{" "}
-            {
-              // truncate address
-              address.slice(0, 6) + "..." + address.slice(-4)
-            }
-          </i>
-        </p> */}
+        <h2 className={styles.noGapBottom}> let's jam </h2>
 
-        <p>Sign In with Discord to check your eligibility for the NFT!</p>
+        <Paragraph margin={"large"}>
+          <Text weight={"bolder"} size="xlarge">
+            Join our discord and get your Alpha Minter role.
+          </Text>
+        </Paragraph>
 
-        <p>
-          <i>
-            (we check to see if you are a member of the JUSTADDMETA discord when
-            you try to mint).
-          </i>
-        </p>
-
-        <button
-          className={`${styles.mainButton} ${styles.spacerTop}`}
-          onClick={signIn}
-        >
-          Connect Discord
+        <button onClick={signIn}>
+          <Box
+            background={"purple"}
+            width="200px"
+            height={"80px"}
+            pad="xsmall"
+            alignSelf="center"
+          >
+            <Text size="xlarge" color={"white"}>
+              Connect Discord
+            </Text>
+          </Box>
         </button>
       </div>
     );
   }
 
-    // 1. Connect with MetaMask
-    if (!address) {
-      return (
-        <div className={styles.main}>
-          
-          {/* <p>Connect your wallet to check eligibility.</p> */}
-          <button
-            onClick={connectWithMetamask}
-            className={`${styles.mainButton} ${styles.spacerTop}`}
-          >
-              Connect w/ metamask
-          </button>
-        </div>
-      );
-    }
+  // 1. Connect with MetaMask
+  if (!address) {
+    return (
+      <div>
+        <Paragraph>
+
+        continue with a wallet.
+        </Paragraph>
+        {/* <p>Connect your wallet to check eligibility.</p> */}
+        <button onClick={connectWithMetamask}>
+          <Box background={"orange"} 
+          alignSelf="end"
+          width="200px" height={"60px"} alignContent="center">
+            connect
+          </Box>
+        </button>
+      </div>
+    );
+  }
 }
