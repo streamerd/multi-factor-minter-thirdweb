@@ -5,7 +5,7 @@ export default async function checkHasRoleInServer(req, res) {
   const session = await getSession({ req });
 
   // Put Your Discord Server ID here
-  const discordServerId = "882215214894940170";
+  const discordServerId = "613678848923533323";
 
   // Read the access token from the session
   const accessToken = session?.accessToken;
@@ -23,7 +23,7 @@ export default async function checkHasRoleInServer(req, res) {
 
   // Check if the user has the role "..."
   const jamDiscordMembership = data.roles?.find(
-    (role) => role.id === "960299282156625940" // P
+    (role) => role.id === "981917337068380170" // P
   );
 
   // // Return undefined or the server object to the client.

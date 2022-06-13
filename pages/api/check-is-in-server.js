@@ -5,7 +5,7 @@ export default async function checkIsInServer(req, res) {
   const session = await getSession({ req });
 
   // Put Your Discord Server ID here
-  const discordServerId = "882215214894940170";
+  const discordServerId = "613678848923533323";
   // Read the access token from the session
   const accessToken = session?.accessToken;
 

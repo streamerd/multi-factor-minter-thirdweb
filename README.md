@@ -212,13 +212,13 @@ Now we have all the servers the user is a member of inside the `data` variable. 
 
 ```jsx
 // well, we're using our serverId
-const discordServerId = "";
+const discordServerId = "613678848923533323";
 
 // Filter all the servers to find the one we want
 // Returns undefined if the user is not a member of the server
 // Returns the server object if the user is a member
   const jamDiscordMembership = data.roles?.find(
-    (role) => role.id === "960299282156625940" // Peace Maker
+    (role) => role.id === "981917337068380170" // Alpha Ticket
   );
 
 // Return undefined or the server object to the client.
