@@ -102,7 +102,8 @@ export default function Airdrop(props) {
               color={"green"}
               label="Wallet Connected"
             />
-            <Button label="Claim NFT" disabled={false} onClick={() => mintNft()} />
+            <Button label="Claim NFT" disabled={false} 
+            onClick={() => mintNft()} />
           </Box>
         ) : (
           <>

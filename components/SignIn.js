@@ -36,8 +36,6 @@ export default function SignIn() {
             Join our community
             <a
               href="https://discord.gg/Mmn5mVbA"
-              target={"_blank"}
-              referrerPolicy={"no-referrer"}
             >
               {" "}
               on discord{" "}
