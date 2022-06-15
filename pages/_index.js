@@ -1,22 +1,16 @@
 import {
   useAddress,
-  useDisconnect,
   useNFTCollection,
   useNetwork,
-  useMetamask,
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
-
 import { ChainId } from "@thirdweb-dev/react";
-import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useState, useEffect } from "react";
 import SignIn from "../components/SignIn";
 import styles from "../styles/Theme.module.css";
-import { AlphaFooter } from "../components/Footer";
-import { useSession, signIn, signOut } from "next-auth/react";
 
-import { Box, Button, Text, Heading, ResponsiveContext } from "grommet";
-import Airdrop from "../components/Airdrop";
-// import { Airdrop } from "../components/Airdrop";
+import { Box, Card, Heading, Paragraph } from "grommet";
 
 export default function Home() {
   // Grab the currently connected wallet's address
@@ -34,17 +28,22 @@ export default function Home() {
     "0xD93bEC957B531Ce2Ea6b86F0132ed8a8ae4ad533"
   );
 
-  const disconnectWallet = useDisconnect();
-
   // This is simply a client-side check to see if the user is a member of the discord in /api/check-is-in-server
   // We ALSO check on the server-side before providing the signature to mint the NFT in /api/generate-signature
   // This check is to show the user that they are eligible to mint the NFT on the UI.
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  // const { push, size } = React.useContext(RouterContext)
   useEffect(() => {
     if (session) {
       setLoading(true);
+      // Load the check to see if the user  and store it in state
+      // fetch("api/check-is-in-server")
+      //   .then((res) => res.json())
+      //   .then((d) => {
+      //     setData(d || undefined);
+      //     setLoading(false);
+      //   });
+
       fetch("api/check-has-role-in-server")
         .then((res) => res.json())
         .then((d) => {
@@ -95,84 +94,67 @@ export default function Home() {
     }
   }
 
-  // return (
-  //   <Box pad="small">
-  //   <AlphaFooter/>
-  // </Box>
-
-  // )
-
   return (
     <div>
-      <Box fill="horizontal" overflow="auto" align="stretch" flex="grow">
-        <Box
-          height={"10%"}
-          align="center"
-          justify="between"
-          direction="row"
-          pad="small"
-          background={{ dark: false, color: "black" }}
-        >
-          <Box
-            pad={"2%"}
-            height={"xxsmall"}
-            align="stretch"
-            justify="start"
-            direction="row"
-          >
-            <Text weight="bold" color="light-1" alignSelf="center">
-              JUSTADDMETA
-            </Text>
-          </Box>
-          <Box align="stretch" justify="start" direction="row" gap="medium">
-            {session ? (
-              <>
-                {/* <Text color={"white"}> hey {session.user.name}</Text> */}
-                <Button
-                  color={"white"}
-                  onClick={() => signOut()}
-                  disabled={false}
-                  active={false}
-                >
-                 discord {"|>"}
-                </Button>
-              </>
-            ) : (
-              <Button color={"white"} onClick={() => signIn()}>
-                connect discord
-              </Button>
-            )}
-            {/* <Button color={"white"} >connect discord</Button> */}
-
-            <Box background={""} direction="row" gap="medium">
-              {address ? ( <>
-                       <Button onClick={() => disconnectWallet()} margin="xsmall" color="white" > 
-                       
-                <Text background pad="small" color={"yellow"} margin="xsmall">
-                  {address.slice(0, 4).concat("...").concat(address.slice(-3))}
-                </Text>
-                       {"|>"}
-                       </Button>
-              </>
-
-              ) : (
-                <Text background pad="small" color={"black"}>
-                 .
-                </Text>
-              )}
-            </Box>
-          </Box>
+      <Box background={"black"} direction="row">
+        <Box alignSelf="start">
+          <Heading color={"white"} margin="medium">
+            JUSTADDMETA
+          </Heading>
         </Box>
+        <Box alignSelf="end">
+          <Box
+            background={"red"}
+            width="xsmall"
+            height="xxsmall"
+            alignSelf="end"
+          ></Box>
+          <Box>{"|>"} Alpha Minting @ x.y.22</Box>
+        </Box>
+        <Box direction="column"></Box>
       </Box>
-      <Box background={"light-2"} height="large">
-        {session ? (
-          // <Box background={"blue"}>. </Box>
-          <Airdrop />
+
+      <SignIn />
+      <hr className={styles.divider} />
+
+      {address && session ? (
+        isLoading ? (
+          <p>Checking...</p>
+        ) : data ? (
+          <div className={`${styles.main} ${styles.spacerTop}`}>
+            <h3>Hey {session?.user?.name} 👋</h3>
+            <h4>
+              Thanks for being part of <strong> JUSTADDMETA</strong> family
+            </h4>
+            <p>here are some nfts you can mint.</p>
+
+            {/* NFT Preview */}
+            <div className={styles.nftPreview}>
+              <b>Your NFT:</b>
+              {/* <img src={session?.user.image} /> */}
+              <img src="https://avatars.githubusercontent.com/u/97170049?s=400&u=d0e11ba3c9e71fccddc3c79c65d8d20b7dc27526&v=4" />
+              <p>{session.user.name}&apos;s member NFT</p>
+            </div>
+
+            <button
+              className={`${styles.mainButton} ${styles.spacerTop}`}
+              onClick={mintNft}
+            >
+              Claim NFT
+            </button>
+          </div>
         ) : (
-          <SignIn />
-        )}
-      </Box>
-      <AlphaFooter claimable={false} />
+          <div className={`${styles.main} ${styles.spacerTop}`}>
+            <p>Looks like you are not a part of the Discord server.</p>
+            <a
+              className={styles.mainButton}
+              href={`https://discord.gg/gjeyuPVa`}
+            >
+              Join Server
+            </a>
+          </div>
+        )
+      ) : null}
     </div>
   );
 }

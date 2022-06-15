@@ -114,7 +114,8 @@
   cursor: pointer;
   text-align: center;
   padding: 5px;
-  color: #fff;
+  color: rgb(194, 22, 22);
+  background-color: yellow;
   font-weight: 600;
 }
 

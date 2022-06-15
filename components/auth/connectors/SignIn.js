@@ -30,22 +30,29 @@ export default function SignIn() {
   // 2. Connect with Discord (OAuth)
   if (!session) {
     return (
-      <Box align="center" justify="center">
-        <Paragraph margin={"xlarge"}>
+      <div className={`${styles.main}`}>
+        <h2 className={styles.noGapBottom}> let&apos;s jam </h2>
+
+        <Paragraph margin={"large"}>
           <Text weight={"bolder"} size="xlarge">
-            Join our community
-            <a
-              href="https://discord.gg/Mmn5mVbA"
-              target={"_blank"}
-              referrerPolicy={"no-referrer"}
-            >
-              {" "}
-              on discord{" "}
-            </a>
-            and get your Alpha Minter role.
+            Join our discord and get your Alpha Minter role.
           </Text>
         </Paragraph>
-      </Box>
+
+        <button onClick={signIn}>
+          <Box
+            background={"purple"}
+            width="200px"
+            height={"80px"}
+            pad="xsmall"
+            alignSelf="center"
+          >
+            <Text size="xlarge" color={"white"}>
+              Connect Discord
+            </Text>
+          </Box>
+        </button>
+      </div>
     );
   }
 
@@ -53,13 +60,19 @@ export default function SignIn() {
   if (!address) {
     return (
       <div>
-        <Button
-          onClick={connectWithMetamask}
-          disabled={false}
-          active={false}
-          color={"black"}
-          label="Connect Wallet"
-        />
+        <Airdrop />
+
+        {/* <Paragraph>
+
+        continue with a wallet.
+        </Paragraph>
+        <button onClick={connectWithMetamask}>
+          <Box background={"orange"} 
+          alignSelf="end"
+          width="200px" height={"60px"} alignContent="center">
+            connect
+          </Box>
+        </button> */}
       </div>
     );
   }
