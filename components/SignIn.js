@@ -1,5 +1,5 @@
 import { useAddress, useDisconnect, useMetamask, useMintNFT, useNFTCollection } from "@thirdweb-dev/react";
-import { Box, Card, Text, Button, Image, Spinner, Footer } from 'grommet'
+import { Box, Card, Text, Button, Image, Spinner, Footer, Paragraph } from 'grommet'
 import { useSession, signIn, signOut } from "next-auth/react";
 import React, { useState } from "react";
 import styles from "../styles/Theme.module.css";
@@ -104,14 +104,19 @@ const MintingInterfaceItem = () => {
                 <Text textAlign="start" weight={"bolder"} margin="small">
                   SUMMERJAM
                 </Text>
-                <Text textAlign="start" size="xlarge" weight="bold" margin={"small"}>
+                <Text textAlign="center" size="xlarge" weight="bold" margin={"small"}>
                   Metaverse has never been this delightful
                 </Text>
+                
               </Box>
-              <Box align="start" justify="center" gap="small">
-                <Text>
-                  Remarkable virtual craftsmanship meets ostentatious yet familiar design. Ingredients from a different dimension and extravagant hints of fruits suiting everyone's palate.
-                </Text>
+              <Box align="center" justify="center" gap="small">
+                <Paragraph textAlign="center">
+                  Remarkable virtual craftsmanship meets ostentatious yet familiar design. 
+                </Paragraph>
+
+                <Paragraph>
+                Ingredients from a different dimension and extravagant hints of fruits suiting everyone&apos;s palate.
+                </Paragraph>
                 <Text size="small" alignSelf="center" weight="bold" margin={"small"}>
                   Exclusive edition of 60 limited edition summer jams in three delightful varieties.
                 </Text>
