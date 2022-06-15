@@ -14,7 +14,7 @@ import styles from "../styles/Theme.module.css";
 import { AlphaFooter } from "../components/Footer";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-import { Box, Button, Text, Heading, ResponsiveContext } from "grommet";
+import { Image, Spinner, Card, Box, Button, Text, Heading } from "grommet";
 import Airdrop from "../components/Airdrop";
 // import { Airdrop } from "../components/Airdrop";
 
@@ -54,6 +54,75 @@ export default function Home() {
     }
   }, [session]);
 
+  const MintingApprove = () => {
+      
+      return (
+        <Box align="stretch" justify="center">
+          <Box align="center" justify="center" pad="large">
+            <Box align="center" justify="center">
+              <Card align="stretch" justify="center" direction="column" pad="large">
+                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                  <Text textAlign="center">
+                    Follow steps
+                  </Text>
+                </Box>
+                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                  <Box align="center" justify="start" direction="row" pad="small" gap="medium">
+                    <Spinner />
+                    <Text>
+                      Approve Asset
+                    </Text>
+                  </Box>
+                </Box>
+                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                  <Box align="start" justify="start" direction="row" gap="medium" pad="small">
+                    <Spinner />
+                    <Text>
+                      Purchase
+                    </Text>
+                  </Box>
+                </Box>
+                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                  <Button label="Cancel" disabled />
+                </Box>
+              </Card>
+            </Box>
+          </Box>
+        </Box>
+      )
+    }
+
+    const Landing = () => {
+    
+    return (
+      <Box align="stretch" justify="center">
+        <Box align="center" justify="center" pad="large" direction="row" gap="small">
+          <Box align="start" justify="center" gap="small" pad="small">
+            <Text size="medium" textAlign="start">
+              amet consectetur 
+            </Text>
+            <Text size="xxlarge">
+              Lorem ipsum
+  amet consectetur adipiscing elit.
+            </Text>
+          </Box>
+          <Box align="center" justify="center">
+            <Image src="https://photos.smugmug.com/Pinnacles-May-2019/n-8KLNDR/i-bxkrqwL/0/1c7fa7f2/M/i-bxkrqwL-M.jpg" fill="horizontal" fit="cover" />
+          </Box>
+          <Box align="start" justify="start" gap="small" pad="small">
+            <Text>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet elementum, laoreet egestas elit vitae 
+            </Text>
+
+
+            <Button label="Login with Discord"  onClick={() => signIn()} />
+          </Box>
+        </Box>
+      </Box>
+    )
+  }
+
+  
   // Function to create a signature on the server-side, and use the signature to mint the NFT
   async function mintNft() {
     // Ensure wallet connected
@@ -101,6 +170,8 @@ export default function Home() {
   // </Box>
 
   // )
+
+
 
   return (
     <div>
@@ -165,9 +236,10 @@ export default function Home() {
         </Box>
       </Box>
       <Box background={"light-2"} height="large">
-        {session ? (
+        {!session ? (
           // <Box background={"blue"}>. </Box>
-          <Airdrop />
+          // <Airdrop />
+          <Landing/>
         ) : (
           <SignIn />
         )}

@@ -25,6 +25,44 @@ export default function Airdrop(props) {
   const [isLoading, setLoading] = useState(false);
   // const { push, size } = React.useContext(RouterContext)
   
+  const MintingApprove = () => {
+    const { push } = React.useContext(RouterContext)
+    
+    return (
+      <Box align="stretch" justify="center">
+        <Box align="center" justify="center" pad="large">
+          <Box align="center" justify="center">
+            <Card align="stretch" justify="center" direction="column" pad="large">
+              <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                <Text textAlign="center">
+                  Follow steps
+                </Text>
+              </Box>
+              <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                <Box align="center" justify="start" direction="row" pad="small" gap="medium">
+                  <Spinner />
+                  <Text>
+                    Approve Asset
+                  </Text>
+                </Box>
+              </Box>
+              <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                <Box align="start" justify="start" direction="row" gap="medium" pad="small">
+                  <Spinner />
+                  <Text>
+                    Purchase
+                  </Text>
+                </Box>
+              </Box>
+              <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+                <Button label="Cancel" disabled />
+              </Box>
+            </Card>
+          </Box>
+        </Box>
+      </Box>
+    )
+  }
 
   async function mintNft() {
 
