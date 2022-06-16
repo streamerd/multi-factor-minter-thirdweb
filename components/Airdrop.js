@@ -103,7 +103,7 @@ export default function Airdrop(props) {
     }
     // If the user does not meet the criteria to have a signature generated, we can show them an error
     else {
-      alert("Something went wrong. Are you a member of the discord?");
+      alert("Something went wrong. Are you a member of our discord?");
     }
   }
 
