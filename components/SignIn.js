@@ -202,6 +202,43 @@ const MintingInterfaceItem = () => {
   );
 };
 
+const MintingFailed = () => {
+  return(
+    <Box align="stretch" justify="center">
+    <Box align="center" justify="center" pad="large">
+      <Box align="center" justify="center">
+        <Card align="stretch" justify="center" direction="column" pad="large">
+          <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+            <Text textAlign="center">
+              Follow steps
+            </Text>
+          </Box>
+          <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+            <Box align="center" justify="start" direction="row" pad="small" gap="medium">
+              <Close color="accent-2" />
+              <Text>
+                Approve Asset
+              </Text>
+            </Box>
+          </Box>
+          <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+            <Box align="start" justify="start" direction="row" gap="medium" pad="small">
+              <Close color="accent-2" />
+              <Text>
+                Purchase
+              </Text>
+            </Box>
+          </Box>
+          <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
+            <Button label="Cancel" disabled={false} />
+          </Box>
+        </Card>
+      </Box>
+    </Box>
+  </Box>
+  )
+}
+
 const MintingApprove = () => {
   return (
     <Box align="stretch" justify="center">
@@ -278,26 +315,26 @@ export default function SignIn() {
   const nftCollectionContract = useNFTCollection(
     "0xD93bEC957B531Ce2Ea6b86F0132ed8a8ae4ad533"
   );
+  
 
+  
   if (session && address) {
     return (
-
-
       <ResponsiveContext.Consumer>
-      {(size) =>
-        size === "small" ? (
-          <Box direction="column">
-            <MintingApprove />
-      <MintingInterfaceItem />
-          </Box>
-        ) : (
-          <Box direction="row">
-            <MintingApprove />
-      <MintingInterfaceItem />
-          </Box>
-        )
-      }
-    </ResponsiveContext.Consumer>
+        {(size) =>
+          size === "small" ? (
+            <Box direction="column">
+              <MintingApprove />
+              <MintingInterfaceItem />
+            </Box>
+          ) : (
+            <Box direction="row">
+              <MintingApprove />
+              <MintingInterfaceItem />
+            </Box>
+          )
+        }
+      </ResponsiveContext.Consumer>
 
       // <MintingApprove/>
       // <div className={styles.bigSpacerTop}>
@@ -317,7 +354,6 @@ export default function SignIn() {
   // 2. Connect with Discord (OAuth)
   if (!session) {
     return (
-
       <Box align="stretch" justify="center">
         <Box
           align="center"
@@ -356,21 +392,23 @@ export default function SignIn() {
   // 1. Connect with MetaMask
   if (!address) {
     return (
-      <ResponsiveContext.Consumer>
-        {(size) =>
-          size === "small" ? (
-            <Box direction="column">
-              <ConnectWallet />
-              <MintingApprove />
-            </Box>
-          ) : (
-            <Box direction="row">
-              <ConnectWallet />
-              <MintingApprove />
-            </Box>
-          )
-        }
-      </ResponsiveContext.Consumer>
+      <ConnectWallet />
+
+      // <ResponsiveContext.Consumer>
+      //   {(size) =>
+      //     size === "small" ? (
+      //       <Box direction="column">
+      //         <ConnectWallet />
+      //         <MintingApprove />
+      //       </Box>
+      //     ) : (
+      //       <Box direction="row">
+      //         <ConnectWallet />
+      //         <MintingApprove />
+      //       </Box>
+      //     )
+      //   }
+      // </ResponsiveContext.Consumer>
     );
   }
 }

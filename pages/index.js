@@ -177,7 +177,7 @@ export default function Home() {
     <div>
       <Box fill="horizontal" overflow="auto" align="stretch" flex="grow">
         <Box
-          height={"10%"}
+          height={"0%"}
           align="center"
           justify="between"
           direction="row"
@@ -191,7 +191,10 @@ export default function Home() {
             justify="start"
             direction="row"
           >
-            <Text weight="bold" color="light-1" alignSelf="center">
+
+
+
+            <Text weight="bolder" color="light-1" alignSelf="center">
               JUSTADDMETA
             </Text>
           </Box>
