@@ -7,38 +7,38 @@ export default async function generateNftSignature(req, res) {
   const session = await getSession({ req });
 
   // Put Your Discord Server ID here
-  const discordServerId = "613678848923533323";
+  // const discordServerId = "613678848923533323";
 
   // Grab the claimer address (currently connected address) out of the request body
   const { claimerAddress } = JSON.parse(req.body);
 
-  // Read the access token from the session so we can use it in the below API request
-  const accessToken = session?.accessToken;
+  // // Read the access token from the session so we can use it in the below API request
+  // const accessToken = session?.accessToken;
 
-  // Make a request to the Discord API to get the servers this user is a part of
-  const response = await fetch(`https://discordapp.com/api/users/@me/guilds`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  // // Make a request to the Discord API to get the servers this user is a part of
+  // const response = await fetch(`https://discordapp.com/api/users/@me/guilds`, {
+  //   headers: {
+  //     Authorization: `Bearer ${accessToken}`,
+  //   },
+  // });
 
-  // Parse the response as JSON
-  const data = await response.json();
-  // You may get rate limited here and receive an error.
+  // // Parse the response as JSON
+  // const data = await response.json();
+  // // You may get rate limited here and receive an error.
 
-  // Filter all the servers to find the one we want
-  // Returns undefined if the user is not a member of the server
-  // Returns the server object if the user is a member
-  const discordMembership = data?.find(
-    (server) => server.id === discordServerId
-  );
+  // // Filter all the servers to find the one we want
+  // // Returns undefined if the user is not a member of the server
+  // // Returns the server object if the user is a member
+  // const discordMembership = data?.find(
+  //   (server) => server.id === discordServerId
+  // );
 
-  // Return an error response if the user is not a member of the server
-  // This prevents the signature from being generated if they are not a member
-  if (!discordMembership) {
-    res.status(403).send("User is not a member of the discord server.");
-    return;
-  }
+  // // Return an error response if the user is not a member of the server
+  // // This prevents the signature from being generated if they are not a member
+  // if (!discordMembership) {
+  //   res.status(403).send("User is not a member of the discord server.");
+  //   return;
+  // }
 
   // You'll need to add your private key in a .env.local file in the root of your project
   // !!!!! NOTE !!!!! NEVER LEAK YOUR PRIVATE KEY to anyone!

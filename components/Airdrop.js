@@ -5,7 +5,7 @@ import { useSession} from "next-auth/react";
 // import {mintNft} from "./Minter"
 
 
-export default function Airdrop(props) {
+export default function Airdrop() {
   const connectWithMetamask = useMetamask();
   const { data: session } = useSession();
   const address = useAddress();
