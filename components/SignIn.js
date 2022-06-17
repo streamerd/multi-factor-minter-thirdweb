@@ -268,7 +268,7 @@ const MintingApprove = () => {
                 pad="small"
                 gap="medium"
               >
-                <Spinner />
+        
                 <Text>Approve Asset</Text>
               </Box>
             </Box>
