@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Box, Card, Text, Button, Image, Spinner } from "grommet";
+import { Box, Card, Heading, Text, Button, Image, Spinner, TextInput } from "grommet";
 import { useAddress, useNFTCollection, useNetwork, useMetamask, useNetworkMismatch, useMintNFT } from "@thirdweb-dev/react";
 import { useSession} from "next-auth/react";
 // import {mintNft} from "./Minter"
@@ -25,6 +25,9 @@ export default function Airdrop() {
   const [isLoading, setLoading] = useState(false);
   // const { push, size } = React.useContext(RouterContext)
   
+  const [amount, setAmount] = useState(1);
+
+
   const MintingApprove = () => {
     const { push } = React.useContext(RouterContext)
     
@@ -64,22 +67,24 @@ export default function Airdrop() {
     )
   }
 
-  async function mintNft() {
+  async function mintNft(amount) {
 
     // Ensure wallet connected
-    // if (!address) {
-    //   alert("Please reconnect your wallet to continue.");
-    //   return;
-    // }
+    if (!address) {
+      alert("Please reconnect your wallet to continue.");
+      return;
+    }
   
-    // // Ensure correct network
-    // if (isOnWrongNetwork) {
-    //   switchNetwork(ChainId.Rinkeby);
-    //   return;
-    // }
+    // Ensure correct network
+    if (isOnWrongNetwork) {
+      switchNetwork(ChainId.Rinkeby);
+      return;
+    }
 
-    console.log("generating signature ...")
-  
+
+
+    console.log(`should mint ${amount} NFT(s)`);
+    
     // Make a request to the API route to generate a signature for us to mint the NFT with
     const signature = await fetch(`/api/generate-signature`, {
       method: "POST",
@@ -116,32 +121,27 @@ export default function Airdrop() {
       flex="grow"
       pad="xlarge"
     >
-      <Card
+      {/* <Card
         pad="large"
         justify="center"
         direction="column"
         align="stretch"
         gap="medium"
-      >
-        <Text size="xxlarge">Claim your spoon</Text>
-
-        <Image
-          src="https://photos.smugmug.com/Pinnacles-May-2019/n-8KLNDR/i-bxkrqwL/0/1c7fa7f2/M/i-bxkrqwL-M.jpg"
-          fill="horizontal"
-          fit="cover"
-        />
+      > */}
+      <Heading>SUMMERJAM</Heading>
 
         {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
-        {session && address ? (
+        { address ? (
           <Box>
-
-            <Button
-              disabled={true}
-              color={"green"}
-              label="Wallet Connected"
-            />
-            <Button label="Claim NFT" disabled={false} 
-            onClick={() => mintNft()} />
+ <TextInput
+      placeholder="number of tokens"
+      disabled
+      value={amount}
+      onChange={event => setAmount(event.target.value)}
+    />
+          {/* <TextInput>asd</TextInput> */}
+                <Button label="mint" disabled={false} 
+            onClick={() => mintNft(amount)} />
           </Box>
         ) : (
           <>
@@ -155,7 +155,7 @@ export default function Airdrop() {
             <Button label="Claim NFT" disabled={true} />
           </>
         )}
-      </Card>
+      {/* </Card> */}
     </Box>
   );
 }

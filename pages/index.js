@@ -37,7 +37,7 @@ export default function Home() {
   const isOnWrongNetwork = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
 
-  const [mintingStarted, setMintingStarted] = useState(false);
+  const [authStarted, setAuthStarted] = useState(false);
 
   // Get the currently authenticated user's session (Next Auth + Discord)
   const { data: session } = useSession();
@@ -69,80 +69,10 @@ export default function Home() {
   //   }
   // }, [session]);
 
-  const MintingApprove = () => {
-    return (
-      <Box align="stretch" justify="center">
-        <Box align="center" justify="center" pad="large">
-          <Box align="center" justify="center">
-            <Card
-              align="stretch"
-              justify="center"
-              direction="column"
-              pad="large"
-            >
-              <Box
-                align="stretch"
-                justify="center"
-                pad="xsmall"
-                direction="column"
-                gap="none"
-              >
-                <Text textAlign="center">Follow steps</Text>
-              </Box>
-              <Box
-                align="stretch"
-                justify="center"
-                pad="xsmall"
-                direction="column"
-                gap="none"
-              >
-                <Box
-                  align="center"
-                  justify="start"
-                  direction="row"
-                  pad="small"
-                  gap="medium"
-                >
-                  <Spinner />
-                  <Text>Approve Asset</Text>
-                </Box>
-              </Box>
-              <Box
-                align="stretch"
-                justify="center"
-                pad="xsmall"
-                direction="column"
-                gap="none"
-              >
-                <Box
-                  align="start"
-                  justify="start"
-                  direction="row"
-                  gap="medium"
-                  pad="small"
-                >
-                  <Spinner />
-                  <Text>Purchase</Text>
-                </Box>
-              </Box>
-              <Box
-                align="stretch"
-                justify="center"
-                pad="xsmall"
-                direction="column"
-                gap="none"
-              >
-                <Button label="Cancel" disabled />
-              </Box>
-            </Card>
-          </Box>
-        </Box>
-      </Box>
-    );
-  };
+  
 
   const Landing = () => {
-    if (!mintingStarted) {
+    if (!authStarted) {
       return (
         <>
           <Box
@@ -186,7 +116,7 @@ export default function Home() {
                   alignSelf="start"
                   label="Start Minting"
                   size="large"
-                  onClick={() => setMintingStarted(true)}
+                  onClick={() => setAuthStarted(true)}
                 />
               </Box>
             </Box>
@@ -194,10 +124,10 @@ export default function Home() {
         </>
       );
     }
-    // because we've set mintingStarted to true,
+    // because we've set authStarted to true,
     // we can now render the AuthOnly component
     else {
-      
+
       return (
         <>
         
@@ -270,7 +200,7 @@ export default function Home() {
     <div>
       <Box fill="horizontal" overflow="auto" align="stretch" flex="grow">
         <Box
-          height={"0%"}
+          // height={"0%"}
           align="center"
           justify="between"
           direction="row"
