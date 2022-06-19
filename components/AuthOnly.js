@@ -1,3 +1,13 @@
+import {
+  useAddress,
+  useDisconnect,
+  useNFTCollection,
+  useNetwork,
+  useMetamask,
+  useNetworkMismatch,
+} from "@thirdweb-dev/react";
+
+import { ChainId } from "@thirdweb-dev/react";
 
 import {
   Image,
@@ -10,8 +20,15 @@ import {
   Paragraph,
 } from "grommet";
 export default function AuthOnly() {
+
+  const connectWithMetamask = useMetamask();
+  // Grab the currently connected wallet's address
+  const address = useAddress();
+  const isOnWrongNetwork = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
+
   return (
-    <Box align="center" justify="center">
+    <Box align="center" justify="center" background={"black"}>
       <Card
         align="stretch"
         justify="center"
@@ -26,19 +43,39 @@ export default function AuthOnly() {
           direction="column"
           gap="small"
         >
-          <Text textAlign="center">AUTHORIZED ACCESS ONLY</Text>
+          <Heading size="small" textAlign="center">AUTHORIZED <br></br> ACCESS ONLY</Heading>
           <Paragraph textAlign="center">
-            You need to connect your metamask wallet to Alpha mint.
+            Connect your wallet to participate in the Alpha Drop.
           </Paragraph>
         </Box>
-        <Box align="stretch" justify="center" pad="small" gap="small">
-          <Button
-            label="Connect Wallet"
-            size="medium"
-            primary
-            onClick={() => connectWithMetamask()}
-          />
+        <Box align="stretch" direction="column" justify="center" pad="small" gap="small">
+
+        <Box gap="medium">
+              {address ? ( <>
+                       <Button color="white" size="medium" onClick={() => disconnectWallet()} margin="xsmall" color="white" > 
+                       
+                <Text background pad="small" color={"green"} margin="xsmall">
+                  {address.slice(0, 4).concat("...").concat(address.slice(-3))}
+                </Text>
+                       </Button>
+
+                       <Button label="Launch"  size="medium" />
+
+              </>
+
+              ) : (
+                <>
+                <Button
+                label="Connect Wallet"
+                size="medium"
+                color={"white"}
+                onClick={() => connectWithMetamask()}
+              />
           <Button label="Launch" active={false} disabled size="medium" />
+                </>
+              )}
+            </Box>
+         
         </Box>
       </Card>
     </Box>

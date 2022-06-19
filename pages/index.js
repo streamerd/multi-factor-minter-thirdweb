@@ -34,6 +34,8 @@ export default function Home() {
   const connectWithMetamask = useMetamask();
   // Grab the currently connected wallet's address
   const address = useAddress();
+  const isOnWrongNetwork = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
 
   const [mintingStarted, setMintingStarted] = useState(false);
 
@@ -41,8 +43,6 @@ export default function Home() {
   const { data: session } = useSession();
 
   // Hooks to enforce the user is on the correct network (Mumbai as declared in _app.js) before minting
-  const isOnWrongNetwork = useNetworkMismatch();
-  const [, switchNetwork] = useNetwork();
 
   // Get the NFT Collection we deployed using thirdweb+
   const nftCollectionContract = useNFTCollection(
@@ -57,17 +57,17 @@ export default function Home() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
   // const { push, size } = React.useContext(RouterContext)
-  useEffect(() => {
-    if (session) {
-      setLoading(true);
-      fetch("api/check-has-role-in-server")
-        .then((res) => res.json())
-        .then((d) => {
-          setData(d || undefined);
-          setLoading(false);
-        });
-    }
-  }, [session]);
+  // useEffect(() => {
+  //   if (session) {
+  //     setLoading(true);
+  //     fetch("api/check-has-role-in-server")
+  //       .then((res) => res.json())
+  //       .then((d) => {
+  //         setData(d || undefined);
+  //         setLoading(false);
+  //       });
+  //   }
+  // }, [session]);
 
   const MintingApprove = () => {
     return (
@@ -197,7 +197,24 @@ export default function Home() {
     // because we've set mintingStarted to true,
     // we can now render the AuthOnly component
     else {
-      return <AuthOnly />;
+      
+      return (
+        <>
+        
+        <Box
+          width={"50%"}
+          background="black"
+          justify="center"
+          align="end"
+          pad={"32px"}
+        >
+          <Image width={"460px"} height={"500px"}></Image>
+        </Box>
+        <Box align="start" width={"50%"} background="black" pad={"32px"} justify="center">
+          <AuthOnly/>
+        </Box>
+      </>
+        );
     }
   };
 
@@ -283,9 +300,9 @@ export default function Home() {
               <Button color={"white"} label="claim" size="large" />
               <Button color={"white"} label="burn" size="large" />
               {address ? (
-                <Button color={"white"} label="connected" size="large" />
+                <Button color={"green"} label="connected" size="large" />
               ) : (
-                <Button color={"white"} label="not connected" size="large" />
+                <Button color={"red"} label="not connected" size="large" />
               )}
             </Box>
 
