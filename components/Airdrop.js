@@ -161,9 +161,13 @@ export default function Airdrop() {
     // await lazyMint();
     //  await configClaimPhases();
 
+    if(amount > 3) {
+      alert("You can only mint 3 NFTs at a time.");
+      return;
+    }
     setIsClaiming(true);
 
-    await editionDrop.claim(0, 1);
+    await editionDrop.claim(0, amount);
 
     console.log(
       `just called editionDrop.claim ... should mint ${amount} NFT(s)`
@@ -219,7 +223,6 @@ export default function Airdrop() {
         <Box>
           <TextInput
             placeholder="number of tokens"
-            disabled
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
           />
