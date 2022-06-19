@@ -1,11 +1,7 @@
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
-import { SessionProvider } from "next-auth/react";
 import { Grommet} from "grommet";
-import { grommet } from "grommet";
 import Head from "next/head";
-import { useState } from "react";
 import "../styles/globals.css";
-import { AlphaFooter } from "../components/Footer";
 
 // This is the chainId your dApp will work on.
 const activeChainId = ChainId.Rinkeby;
@@ -35,12 +31,12 @@ function MyApp({ Component, pageProps }) {
 
     <ThirdwebProvider desiredChainId={activeChainId}>
       {/* Next Auth Session Provider */}
-      <SessionProvider session={pageProps.session}>
+      {/* <SessionProvider session={pageProps.session}> */}
         <Head>
           <title>Alpha Minting</title>
         </Head>
         <Component {...pageProps} />
-      </SessionProvider>
+      {/* </SessionProvider> */}
     </ThirdwebProvider>
     </Grommet>
   );
