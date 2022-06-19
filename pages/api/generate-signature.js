@@ -1,10 +1,10 @@
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 
 
 export default async function generateNftSignature(req, res) {
   // Get the Next Auth session so we can use the accessToken as part of the discord API request
-  const session = await getSession({ req });
+  // const session = await getSession({ req });
 
   // Put Your Discord Server ID here
   // const discordServerId = "613678848923533323";
@@ -59,10 +59,10 @@ export default async function generateNftSignature(req, res) {
   const signedPayload = await nftCollection.signature.generate({
     to: claimerAddress,
     metadata: {
-      name: `${session.user.name}'s JUSTADDMETA discord member NFT`,
+      name: ` SUMMERJAM NFT`,
       // image: `${session.user.image}`,
       image: "https://avatars.githubusercontent.com/u/97170049?s=400&u=d0e11ba3c9e71fccddc3c79c65d8d20b7dc27526&v=4",
-      description: `An NFT rewarded to ${session.user.name} for being a part of the start community!`,
+      description: `A SUMMERJAM NFT!`,
     },
   });
 
