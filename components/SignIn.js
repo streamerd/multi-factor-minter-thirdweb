@@ -54,7 +54,7 @@ const ConnectWallet = () => {
             </Box>
             <Box align="stretch" justify="center" pad="small" gap="small">
               <Button
-                label="Connect Wallet"
+                label="Start Minting"
                 size="medium"
                 primary
                 onClick={() => connectWithMetamask()}
@@ -351,43 +351,7 @@ export default function SignIn() {
     );
   }
 
-  // 2. Connect with Discord (OAuth)
-  if (!session) {
-    return (
-      <Box align="stretch" justify="center">
-        <Box
-          align="center"
-          justify="center"
-          pad="large"
-          direction="row"
-          gap="small"
-        >
-          <Box align="start" justify="center" gap="small" pad="small">
-            <Text size="medium" textAlign="start">
-              amet consectetur
-            </Text>
-            <Text size="xxlarge">
-              Lorem ipsum amet consectetur adipiscing elit.
-            </Text>
-          </Box>
-          <Box align="center" justify="center">
-            <Image
-              src="https://photos.smugmug.com/Pinnacles-May-2019/n-8KLNDR/i-bxkrqwL/0/1c7fa7f2/M/i-bxkrqwL-M.jpg"
-              fill="horizontal"
-              fit="cover"
-            />
-          </Box>
-          <Box align="start" justify="start" gap="small" pad="small">
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet
-              elementum, laoreet egestas elit vitae
-            </Text>
-            <Button label="Login with Discord" onClick={() => signIn()} />
-          </Box>
-        </Box>
-      </Box>
-    );
-  }
+  
 
   // 1. Connect with MetaMask
   if (!address) {

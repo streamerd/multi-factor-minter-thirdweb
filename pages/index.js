@@ -13,14 +13,29 @@ import SignIn from "../components/SignIn";
 import styles from "../styles/Theme.module.css";
 import { AlphaFooter } from "../components/Footer";
 import { useSession, signIn, signOut } from "next-auth/react";
+import AuthOnly from "../components/AuthOnly";
 
-import { Image, Spinner, Card, Box, Button, Text, Heading } from "grommet";
+import {
+  Image,
+  Spinner,
+  Card,
+  Box,
+  Button,
+  Text,
+  Heading,
+  Paragraph,
+} from "grommet";
 import Airdrop from "../components/Airdrop";
+import Welcome from "../components/Welcome";
+import { Onedrive } from "grommet-icons";
 // import { Airdrop } from "../components/Airdrop";
 
 export default function Home() {
+  const connectWithMetamask = useMetamask();
   // Grab the currently connected wallet's address
   const address = useAddress();
+
+  const [mintingStarted, setMintingStarted] = useState(false);
 
   // Get the currently authenticated user's session (Next Auth + Discord)
   const { data: session } = useSession();
@@ -54,76 +69,138 @@ export default function Home() {
     }
   }, [session]);
 
-
   const MintingApprove = () => {
-      
-      return (
-        <Box align="stretch" justify="center">
-          <Box align="center" justify="center" pad="large">
-            <Box align="center" justify="center">
-              <Card align="stretch" justify="center" direction="column" pad="large">
-                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
-                  <Text textAlign="center">
-                    Follow steps
-                  </Text>
-                </Box>
-                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
-                  <Box align="center" justify="start" direction="row" pad="small" gap="medium">
-                    <Spinner />
-                    <Text>
-                      Approve Asset
-                    </Text>
-                  </Box>
-                </Box>
-                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
-                  <Box align="start" justify="start" direction="row" gap="medium" pad="small">
-                    <Spinner />
-                    <Text>
-                      Purchase
-                    </Text>
-                  </Box>
-                </Box>
-                <Box align="stretch" justify="center" pad="xsmall" direction="column" gap="none">
-                  <Button label="Cancel" disabled />
-                </Box>
-              </Card>
-            </Box>
-          </Box>
-        </Box>
-      )
-    }
-
-    const Landing = () => {
-    
     return (
       <Box align="stretch" justify="center">
-        <Box align="center" justify="center" pad="large" direction="row" gap="small">
-          <Box align="start" justify="center" gap="small" pad="small">
-            <Text size="medium" textAlign="start">
-              amet consectetur 
-            </Text>
-            <Text size="xxlarge">
-              Lorem ipsum
-  amet consectetur adipiscing elit.
-            </Text>
-          </Box>
+        <Box align="center" justify="center" pad="large">
           <Box align="center" justify="center">
-            <Image src="https://photos.smugmug.com/Pinnacles-May-2019/n-8KLNDR/i-bxkrqwL/0/1c7fa7f2/M/i-bxkrqwL-M.jpg" fill="horizontal" fit="cover" />
-          </Box>
-          <Box align="start" justify="start" gap="small" pad="small">
-            <Text>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet elementum, laoreet egestas elit vitae 
-            </Text>
-
-
-            <Button label="Login with Discord"  onClick={() => signIn()} />
+            <Card
+              align="stretch"
+              justify="center"
+              direction="column"
+              pad="large"
+            >
+              <Box
+                align="stretch"
+                justify="center"
+                pad="xsmall"
+                direction="column"
+                gap="none"
+              >
+                <Text textAlign="center">Follow steps</Text>
+              </Box>
+              <Box
+                align="stretch"
+                justify="center"
+                pad="xsmall"
+                direction="column"
+                gap="none"
+              >
+                <Box
+                  align="center"
+                  justify="start"
+                  direction="row"
+                  pad="small"
+                  gap="medium"
+                >
+                  <Spinner />
+                  <Text>Approve Asset</Text>
+                </Box>
+              </Box>
+              <Box
+                align="stretch"
+                justify="center"
+                pad="xsmall"
+                direction="column"
+                gap="none"
+              >
+                <Box
+                  align="start"
+                  justify="start"
+                  direction="row"
+                  gap="medium"
+                  pad="small"
+                >
+                  <Spinner />
+                  <Text>Purchase</Text>
+                </Box>
+              </Box>
+              <Box
+                align="stretch"
+                justify="center"
+                pad="xsmall"
+                direction="column"
+                gap="none"
+              >
+                <Button label="Cancel" disabled />
+              </Box>
+            </Card>
           </Box>
         </Box>
       </Box>
-    )
-  }
+    );
+  };
 
-  
+  const Landing = () => {
+    if (!mintingStarted) {
+      return (
+        <>
+          <Box
+            width={"50%"}
+            background="black"
+            justify="center"
+            align="end"
+            pad={"large"}
+          >
+            <Image width={"460px"} height={"500px"}></Image>
+          </Box>
+          <Box width={"50%"} background="black" pad={"32px"} justify="center">
+            <Box direction="column" pad={"xsmall"}>
+              <Text size="large" textAlign="start">
+                SUMMERJAM NFT
+              </Text>
+              <Heading size="medium" textAlign="start" color={"#e326cc"}>
+                SOME LONGER AND BIGGER HEADING
+              </Heading>
+            </Box>
+
+            <Box direction="column" margin={"small"} gap={"medium"}>
+              <Text textAlign="start">
+                We are happy to announce the first holistic drop to our
+                JUSTADDMETA collection. It is our most ambitious project to date
+                and took a lot of planning, designing and technological
+                development. It is the beginning of our own ecosystem, with much
+                more to come.
+              </Text>
+
+              <Text textAlign="start">
+                In order to celebrate the name & everyone behind the vision, we
+                decided to drop a collection of limited edition NFTs. Those who
+                are lucky enough to get their hands on one of the just 50 jam
+                NFTs are in for an interesting ride through the metaverse and
+                our vision of it. The journey has only begun. Look out for new
+                drops & hidden features.
+              </Text>
+              <Box>
+                <Button
+                  alignSelf="start"
+                  label="Start Minting"
+                  size="large"
+                  onClick={() => setMintingStarted(true)}
+                />
+              </Box>
+            </Box>
+          </Box>
+        </>
+      );
+    }
+    // because we've set mintingStarted to true,
+    // we can now render the AuthOnly component
+    else {
+      return <AuthOnly />;
+    }
+  };
+
   // Function to create a signature on the server-side, and use the signature to mint the NFT
   async function mintNft() {
     // Ensure wallet connected
@@ -172,8 +249,6 @@ export default function Home() {
 
   // )
 
-
-
   return (
     <div>
       <Box fill="horizontal" overflow="auto" align="stretch" flex="grow">
@@ -192,63 +267,36 @@ export default function Home() {
             justify="start"
             direction="row"
           >
-
-
-
-            <Text weight="bolder" color="light-1" alignSelf="center">
+            <Text
+              weight="bolder"
+              color="light-1"
+              alignSelf="center"
+              size="xlarge"
+            >
               JUSTADDMETA
             </Text>
           </Box>
-          <Box align="stretch" justify="start" direction="row" gap="medium">
-            {session ? (
-              <>
-                {/* <Text color={"white"}> hey {session.user.name}</Text> */}
-                <Button
-                  color={"white"}
-                  onClick={() => signOut()}
-                  disabled={false}
-                  active={false}
-                >
-                 discord {"|>"}
-                </Button>
-              </>
-            ) : (
-              <Button color={"white"} onClick={() => signIn()}>
-                connect discord
-              </Button>
-            )}
-            {/* <Button color={"white"} >connect discord</Button> */}
 
-            <Box background={""} direction="row" gap="medium">
-              {address ? ( <>
-                       <Button onClick={() => disconnectWallet()} margin="xsmall" color="white" > 
-                       
-                <Text background pad="small" color={"yellow"} margin="xsmall">
-                  {address.slice(0, 4).concat("...").concat(address.slice(-3))}
-                </Text>
-                       {"|>"}
-                       </Button>
-              </>
-
+          <Box align="stretch">
+            <Box direction="row" gap="small" pad={"xsmall"}>
+              <Button color={"white"} label="mint" size="large" />
+              <Button color={"white"} label="claim" size="large" />
+              <Button color={"white"} label="burn" size="large" />
+              {address ? (
+                <Button color={"white"} label="connected" size="large" />
               ) : (
-                <Text background pad="small" color={"black"}>
-                 .
-                </Text>
+                <Button color={"white"} label="not connected" size="large" />
               )}
             </Box>
+
+            {/* <Button color={"white"} >connect discord</Button> */}
           </Box>
         </Box>
       </Box>
-      <Box background={"light-2"} height="large">
-        {!session ? (
-          // <Box background={"blue"}>. </Box>
-          // <Airdrop />
-          <Landing/>
-        ) : (
-          <SignIn />
-        )}
+      <Box background={"light-2"} height="large" direction="row">
+        <Landing />
       </Box>
-      <AlphaFooter claimable={false} />
+      <AlphaFooter />
     </div>
   );
 }
