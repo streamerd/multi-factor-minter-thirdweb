@@ -8,7 +8,6 @@ import {
 } from "@thirdweb-dev/react";
 import { ChainId } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AlphaFooter } from "../components/Footer";
 import AuthOnly from "../components/AuthOnly";
 

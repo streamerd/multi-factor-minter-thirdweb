@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Box,
   Card,
@@ -184,7 +185,7 @@ export default function Airdrop() {
         <Paragraph textAlign="start">
           Remarkable virtual craftsmanship meets ostentatious yet familiar
           design. Ingredients from a different dimension and extravagant hints
-          of fruits suiting everyone's palate.Exclusive edition of XX (??)
+          of fruits suiting everyone&apos;s palate.Exclusive edition of XX (??)
           limited edition summer jams in three delightful varieties.
         </Paragraph>
         {isClaiming ? <Spinner /> : null}

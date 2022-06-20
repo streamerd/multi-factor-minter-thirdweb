@@ -23,7 +23,7 @@ export const AlphaFooter = () => {
           <Box width={"full"} direction="row">
             <Anchor icon={<Instagram color="black"/>} />
                         <Anchor icon={<Instagram color="black"/>} />
-                      <Anchor icon={<Instagram color="black"/>} /> */}
+                      <Anchor icon={<Instagram color="black"/>} />
 
           </Box>
         </Box>
