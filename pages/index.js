@@ -68,7 +68,7 @@ export default function Home() {
             align="end"
             pad={"large"}
           >
-            <Image width={"460px"} height={"500px"}></Image>
+            <Image src="https://i.imgur.com/48dRmwN.png" width={"460px"} height={"500px"}></Image>
           </Box>
           <Box width={"50%"} background="black" pad={"32px"} justify="center">
             <Box direction="column" pad={"xsmall"}>
@@ -124,7 +124,7 @@ export default function Home() {
           align="end"
           pad={"32px"}
         >
-          <Image width={"460px"} height={"500px"}></Image>
+          <Image src="https://i.imgur.com/mSBSyOz.png" width={"460px"} height={"500px"}></Image>
         </Box>
         <Box align="start" width={"50%"} background="black" pad={"32px"} justify="center">
           <AuthOnly/>

@@ -157,42 +157,36 @@ export default function Airdrop() {
   return (
     <Box
       fill="vertical"
-      overflow="auto"
+      // overflow="auto"
       align="center"
       flex="grow"
-      pad="xlarge"
+      pad="large"
     >
-      {visible ? (
-        <Notification
-          toast
-          title="Your NFT is on the way!"
-          message="Please check your wallet, it should be there in less than a minute."
-          onClose={() => setVisible(false)}
-        />
-      ) : null}
-
       <Card
-        pad="large"
+        pad="medium"
         justify="center"
         direction="column"
-        align="stretch"
-        gap="xsmall"
+        // align="stretch"
+        gap="xxsmall"
       >
-        <Text size="large">SUMMERJAM</Text>
+        <Text alignSelf="start" size="large">
+          SUMMERJAM
+        </Text>
         <Heading textAlign="start" size="small">
           Metaverse has never been this delightful
         </Heading>
         <Paragraph textAlign="start">
           Remarkable virtual craftsmanship meets ostentatious yet familiar
           design. Ingredients from a different dimension and extravagant hints
-          of fruits suiting everyone&apos;s palate.Exclusive edition of XX (??)
-          limited edition summer jams in three delightful varieties.
+          of fruits suiting everyone&apos;s palate.
+          <br></br> <br></br> Exclusive edition of 50 limited edition summer
+          jams in three delightful varieties.
         </Paragraph>
         {isClaiming ? <Spinner /> : null}
 
         {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
         {address ? (
-          <Box gap="medium">
+          <Box gap="small">
             <Text> 10/50 </Text>
             {/* <TextInput
             placeholder={{}}
@@ -201,6 +195,15 @@ export default function Airdrop() {
           /> */}
             {/* <TextInput>asd</TextInput> */}
             <Button label="mint" disabled={false} onClick={() => claimNFT()} />
+            {visible ? (
+              <Notification
+                background="#1a161c"
+                toast
+                title="Your NFT is on the way!"
+                message="Please check your wallet, it should be there in less than a minute."
+                onClose={() => setVisible(false)}
+              />
+            ) : null}
           </Box>
         ) : (
           <>

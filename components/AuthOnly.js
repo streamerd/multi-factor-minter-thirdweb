@@ -61,6 +61,7 @@ export default function AuthOnly() {
             </Paragraph>
 
             <Button
+              margin={"medium"}
               label="Connect Wallet"
               size="large"
               color={"white"}
@@ -80,9 +81,17 @@ export default function AuthOnly() {
         <Box gap="medium">
           {address && !mintingStarted ? (
             <>
+             <Heading size="small" textAlign="center">
+            AUTHORIZED <br></br> ACCESS ONLY
+          </Heading> 
+
+          <Paragraph textAlign="center">
+              Now you can participate in the Alpha Drop.
+            </Paragraph>
+
               <Button
                 color="white"
-                margin="xsmall"
+                margin="medium"
                 size="large"
                 active={false}
                 // onClick={() => disconnectWallet()}
@@ -92,7 +101,7 @@ export default function AuthOnly() {
                   background
                   pad="small"
                   color={"white"}
-                  margin="xsmall"
+                  margin="small"
                 >
                   {address.slice(0, 4).concat("...").concat(address.slice(-3))}
                 </Text>
