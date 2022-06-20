@@ -6,18 +6,13 @@ import {
   useMetamask,
   useNetworkMismatch,
 } from "@thirdweb-dev/react";
-
 import { ChainId } from "@thirdweb-dev/react";
 import React, { useState, useEffect } from "react";
-import SignIn from "../components/SignIn";
-import styles from "../styles/Theme.module.css";
 import { AlphaFooter } from "../components/Footer";
-import { useSession, signIn, signOut } from "next-auth/react";
 import AuthOnly from "../components/AuthOnly";
 
 import {
   Image,
-  Spinner,
   Card,
   Box,
   Button,
@@ -25,24 +20,15 @@ import {
   Heading,
   Paragraph,
 } from "grommet";
-import Airdrop from "../components/Airdrop";
-import Welcome from "../components/Welcome";
-import { Onedrive } from "grommet-icons";
 // import { Airdrop } from "../components/Airdrop";
 
 export default function Home() {
-  const connectWithMetamask = useMetamask();
   // Grab the currently connected wallet's address
   const address = useAddress();
   const isOnWrongNetwork = useNetworkMismatch();
   const [, switchNetwork] = useNetwork();
 
   const [authStarted, setAuthStarted] = useState(false);
-
-  // Get the currently authenticated user's session (Next Auth + Discord)
-  const { data: session } = useSession();
-
-  // Hooks to enforce the user is on the correct network (Mumbai as declared in _app.js) before minting
 
   // Get the NFT Collection we deployed using thirdweb+
   const nftCollectionContract = useNFTCollection(
@@ -74,7 +60,7 @@ export default function Home() {
   const Landing = () => {
     if (!authStarted) {
       return (
-        <>
+     <>
           <Box
             width={"50%"}
             background="black"
@@ -82,7 +68,7 @@ export default function Home() {
             align="end"
             pad={"large"}
           >
-            <Image width={"460px"} height={"500px"}></Image>
+            <Image src="https://i.imgur.com/48dRmwN.png" width={"460px"} height={"500px"}></Image>
           </Box>
           <Box width={"50%"} background="black" pad={"32px"} justify="center">
             <Box direction="column" pad={"xsmall"}>
@@ -121,7 +107,7 @@ export default function Home() {
               </Box>
             </Box>
           </Box>
-        </>
+     </>
       );
     }
     // because we've set authStarted to true,
@@ -138,7 +124,7 @@ export default function Home() {
           align="end"
           pad={"32px"}
         >
-          <Image width={"460px"} height={"500px"}></Image>
+          <Image src="https://i.imgur.com/mSBSyOz.png" width={"460px"} height={"500px"}></Image>
         </Box>
         <Box align="start" width={"50%"} background="black" pad={"32px"} justify="center">
           <AuthOnly/>
@@ -148,56 +134,10 @@ export default function Home() {
     }
   };
 
-  // Function to create a signature on the server-side, and use the signature to mint the NFT
-  async function mintNft() {
-    // Ensure wallet connected
-    if (!address) {
-      alert("Please connect your wallet to continue.");
-      return;
-    }
-
-    // Ensure correct network
-    if (isOnWrongNetwork) {
-      switchNetwork(ChainId.Rinkeby);
-      return;
-    }
-
-    // Make a request to the API route to generate a signature for us to mint the NFT with
-    const signature = await fetch(`/api/generate-signature`, {
-      method: "POST",
-      body: JSON.stringify({
-        // Pass our wallet address (currently connected wallet) as the parameter
-        claimerAddress: address,
-      }),
-    });
-
-    // If the user meets the criteria to have a signature generated, we can use the signature
-    // on the client side to mint the NFT from this client's wallet
-    if (signature.status === 200) {
-      const json = await signature.json();
-      const signedPayload = json.signedPayload;
-      const nft = await nftCollectionContract?.signature.mint(signedPayload);
-
-      // Show a link to view the NFT they minted
-      alert(
-        `Success 🔥  Check out your NFT here: https://testnets.opensea.io/assets/rinkeby/0xD93bEC957B531Ce2Ea6b86F0132ed8a8ae4ad533/${nft.id.toNumber()}`
-      );
-    }
-    // If the user does not meet the criteria to have a signature generated, we can show them an error
-    else {
-      alert("Something went wrong. Are you a member of the JAM discord?");
-    }
-  }
-
-  // return (
-  //   <Box pad="small">
-  //   <AlphaFooter/>
-  // </Box>
-
-  // )
-
+ 
   return (
     <div>
+  
       <Box fill="horizontal" overflow="auto" align="stretch" flex="grow">
         <Box
           // height={"0%"}
@@ -207,6 +147,7 @@ export default function Home() {
           pad="small"
           background={{ dark: false, color: "black" }}
         >
+   
           <Box
             pad={"2%"}
             height={"xxsmall"}
@@ -230,7 +171,7 @@ export default function Home() {
               <Button color={"white"} label="claim" size="large" />
               <Button color={"white"} label="burn" size="large" />
               {address ? (
-                <Button color={"green"} label="connected" size="large" />
+                <Button color={"green"} label="connected" onClick={() => disconnectWallet()} size="large" />
               ) : (
                 <Button color={"red"} label="not connected" size="large" />
               )}
@@ -240,6 +181,7 @@ export default function Home() {
           </Box>
         </Box>
       </Box>
+     
       <Box background={"light-2"} height="large" direction="row">
         <Landing />
       </Box>

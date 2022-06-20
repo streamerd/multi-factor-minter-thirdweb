@@ -1,26 +1,25 @@
 import React, { useState } from "react";
+
 import {
   Box,
   Card,
   Heading,
   Text,
   Button,
-  Image,
+  Notification,
   Spinner,
   TextInput,
+  Paragraph,
 } from "grommet";
 import {
   useAddress,
-  useNFTBalance,
+  // useNFTBalance,
   useNFTCollection,
   useNetwork,
   useMetamask,
   useNetworkMismatch,
-  useMintNFT,
   useEditionDrop,
 } from "@thirdweb-dev/react";
-// import { useSession} from "next-auth/react";
-// import {mintNft} from "./Minter"
 
 export default function Airdrop() {
   const connectWithMetamask = useMetamask();
@@ -37,17 +36,10 @@ export default function Airdrop() {
     "0xB4B8f15C9FF18B01D6894713c2e7712fBE2871Ca"
   );
   const [isClaiming, setIsClaiming] = useState(false);
+  const [amount, setAmount] = useState(1); // max mint amount at a time, default 1
+  const [totalMinted, setTotalMinted] = useState(0);
 
-  const { data: balance, isLoading } = useNFTBalance(editionDrop, address, "0");
-  // This is simply a client-side check to see if the user is a member of the discord in /api/check-is-in-server
-  // We ALSO check on the server-side before providing the signature to mint the NFT in /api/generate-signature
-  // This check is to show the user that they are eligible to mint the NFT on the UI.
-  const [data, setData] = useState(null);
-  // const [isLoading, setLoading] = useState(false);
-  // const { push, size } = React.useContext(RouterContext)
-
-  const [amount, setAmount] = useState(1);
-
+  const [visible, setVisible] = useState(false);
   const MintingApprove = () => {
     const { push } = React.useContext(RouterContext);
 
@@ -122,21 +114,14 @@ export default function Airdrop() {
     );
   };
 
-  
-
   const configClaimPhases = async () => {
-    const presaleStartTime = new Date();
-    const publicSaleStartTime = new Date(Date.now() + 60 * 60 * 24 * 1000);
+    const saleStartTime = new Date();
     const claimConditions = [
       {
-        startTime: presaleStartTime, // start the presale now
-        maxQuantity: 100, // limit how many mints for this presale
-        price: 0.01, // presale price
+        startTime: saleStartTime, // start the presale now
+        maxQuantity: 150, // limit how many mints for this presale
+        price: 0, // presale price
         snapshot: ["0xF2Bb8DCD9c246c03a42b029942DDD92Dd0Ea2302"], // limit minting to only certain addresses
-      },
-      {
-        startTime: publicSaleStartTime, // 24h after presale, start public sale
-        price: 0.08, // public sale price
       },
     ];
 
@@ -144,8 +129,9 @@ export default function Airdrop() {
     await editionDrop.claimConditions.set(tokenId, claimConditions);
   };
 
-  async function mintNft(amount) {
+  async function claimNFT() {
     // Ensure wallet connected
+
     if (!address) {
       alert("Please reconnect your wallet to continue.");
       return;
@@ -161,91 +147,77 @@ export default function Airdrop() {
     // await lazyMint();
     //  await configClaimPhases();
 
-    if(amount > 3) {
-      alert("You can only mint 3 NFTs at a time.");
-      return;
-    }
     setIsClaiming(true);
+    await editionDrop.claimTo(address, 0, 1);
 
-    await editionDrop.claim(0, amount);
-
-    console.log(
-      `just called editionDrop.claim ... should mint ${amount} NFT(s)`
-    );
-
-    // Make a request to the API route to generate a signature for us to mint the NFT with
-
-    // const signature = await fetch(`/api/generate-signature`, {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     // Pass our wallet address (currently connected wallet) as the parameter
-    //     claimerAddress: address,
-    //   }),
-    // });
-
-    // If the user meets the criteria to have a signature generated, we can use the signature
-    // on the client side to mint the NFT from this client's wallet
-    // if (signature.status === 200) {
-    //   const json = await signature.json();
-    //   const signedPayload = json.signedPayload;
-    //   const nft = await nftCollectionContract?.signature.mint(signedPayload);
-
-    //   // Show a link to view the NFT they minted
-    //   alert(
-    //     `Success 🔥  Check out your NFT here: https://testnets.opensea.io/assets/rinkeby/0xD93bEC957B531Ce2Ea6b86F0132ed8a8ae4ad533/${nft.id.toNumber()}`
-    //   );
-    // }
-    // // If the user does not meet the criteria to have a signature generated, we can show them an error
-    // else {
-    //   alert("Something went wrong. Are you a member of our discord?");
-    // }
+    setIsClaiming(false);
+    setVisible(true);
   }
 
   return (
     <Box
       fill="vertical"
-      overflow="auto"
+      // overflow="auto"
       align="center"
       flex="grow"
-      pad="xlarge"
+      pad="large"
     >
-      {/* <Card
-        pad="large"
+      <Card
+        pad="medium"
         justify="center"
         direction="column"
-        align="stretch"
-        gap="medium"
-      > */}
-      <Heading>SUMMERJAM</Heading>
+        // align="stretch"
+        gap="xxsmall"
+      >
+        <Text alignSelf="start" size="large">
+          SUMMERJAM
+        </Text>
+        <Heading textAlign="start" size="small">
+          Metaverse has never been this delightful
+        </Heading>
+        <Paragraph textAlign="start">
+          Remarkable virtual craftsmanship meets ostentatious yet familiar
+          design. Ingredients from a different dimension and extravagant hints
+          of fruits suiting everyone&apos;s palate.
+          <br></br> <br></br> Exclusive edition of 50 limited edition summer
+          jams in three delightful varieties.
+        </Paragraph>
+        {isClaiming ? <Spinner /> : null}
 
-      {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
-      {address ? (
-        <Box>
-          <TextInput
-            placeholder="number of tokens"
+        {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
+        {address ? (
+          <Box gap="small">
+            <Text> 10/50 </Text>
+            {/* <TextInput
+            placeholder={{}}
             value={amount}
             onChange={(event) => setAmount(event.target.value)}
-          />
-          {/* <TextInput>asd</TextInput> */}
-          <Button
-            label="mint"
-            disabled={false}
-            onClick={() => mintNft(amount)}
-          />
-        </Box>
-      ) : (
-        <>
-          <Button
-            onClick={connectWithMetamask}
-            disabled={false}
-            active={false}
-            color={"black"}
-            label="Connect Wallet"
-          />
-          <Button label="Claim NFT" disabled={true} />
-        </>
-      )}
-      {/* </Card> */}
+          /> */}
+            {/* <TextInput>asd</TextInput> */}
+            <Button label="mint" disabled={false} onClick={() => claimNFT()} />
+            {visible ? (
+              <Notification
+                background="#1a161c"
+                toast
+                title="Your NFT is on the way!"
+                message="Please check your wallet, it should be there in less than a minute."
+                onClose={() => setVisible(false)}
+              />
+            ) : null}
+          </Box>
+        ) : (
+          <>
+            <Button
+              onClick={connectWithMetamask}
+              disabled={false}
+              active={false}
+              color={"black"}
+              label="Connect Wallet"
+            />
+            <Button label="Claim NFT" disabled={true} />
+          </>
+        )}
+      </Card>
     </Box>
   );
 }
