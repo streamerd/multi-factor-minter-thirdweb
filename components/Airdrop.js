@@ -189,13 +189,7 @@ export default function Airdrop() {
         {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
         {address ? (
           <Box gap="small">
-            <iframe
-src="https://gateway.ipfscdn.io/ipfs/QmRPK2zjmkM8sodgCpyiCbLTvKGJwU3mWcwXwL2AWEBWym/edition-drop.html?contract=0xB4B8f15C9FF18B01D6894713c2e7712fBE2871Ca&chainId=4&tokenId=0"
-width="600px"
-height="600px"
-style="max-width:100%;"
-frameborder="0"
-></iframe>
+
             <Text> X/50 minted.</Text>
             {/* <TextInput
             placeholder={{}}
