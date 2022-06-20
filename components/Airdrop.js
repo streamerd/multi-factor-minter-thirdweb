@@ -10,6 +10,9 @@ import {
   Spinner,
   TextInput,
   Paragraph,
+  CardHeader,
+  CardBody,
+  CardFooter,
 } from "grommet";
 import {
   useAddress,
@@ -20,6 +23,8 @@ import {
   useNetworkMismatch,
   useEditionDrop,
 } from "@thirdweb-dev/react";
+
+import { StatusGood, Validate } from "grommet-icons";
 
 export default function Airdrop() {
   const connectWithMetamask = useMetamask();
@@ -36,6 +41,7 @@ export default function Airdrop() {
     "0xB4B8f15C9FF18B01D6894713c2e7712fBE2871Ca"
   );
   const [isClaiming, setIsClaiming] = useState(false);
+  const [justClaimed, setJustClaimed] = useState(false); // so we can show -mint another- instead -mint- text on button.
   // const [amount, setAmount] = useState(1); // max mint amount at a time, default 1
   const [totalMinted, setTotalMinted] = useState(0);
 
@@ -119,7 +125,7 @@ export default function Airdrop() {
     const claimConditions = [
       {
         startTime: saleStartTime, // start the presale now
-        maxQuantity: 250, // limit how many mints for this test minting. for now it's 250 @ rinkeby.
+        maxQuantity: 1000, // limit how many mints for this test minting. for now it's 250 @ rinkeby.
         price: 0, // sale price
         snapshot: [
           "0xF2Bb8DCD9c246c03a42b029942DDD92Dd0Ea2302",
@@ -131,6 +137,34 @@ export default function Airdrop() {
 
     const tokenId = 0; // the id of the NFT to set claim conditions on
     await editionDrop.claimConditions.set(tokenId, claimConditions);
+  };
+
+  const claimProcessWindow = () => {
+    return (
+      <Card height="small" width="small" background="light-1">
+        <CardHeader pad="medium">follow steps</CardHeader>
+        <CardBody pad="medium">
+          <Box direction="column">
+            <Box direction="row">
+              <Text>Approved Asset</Text>
+              <StatusGood size="medium" />
+            </Box>
+            <Box direction="row">
+              <Spinner size="medium" margin={"xsmall"} />
+              <Text>Purchase</Text>
+            </Box>
+          </Box>
+        </CardBody>
+        <CardFooter pad={{ horizontal: "small" }} background="light-2">
+          {/* <Button
+    icon={<Icons.Favorite color="red" />}
+    hoverIndicator
+    /> */}
+          cardFooter
+          {/* <Button icon={<Icons.ShareOption color="plain" />} hoverIndicator /> */}
+        </CardFooter>
+      </Card>
+    );
   };
 
   async function claimNFT() {
@@ -147,16 +181,17 @@ export default function Airdrop() {
     }
 
     // just once, from time to time. just run it locally,
-    // never deploy to a non-test network. 
-    // we'll only run it via code (here, for now @ minting phase for convenience.) 
-    // keeping here until we develop our dashboard to make those configurations without touching the source code.
+    // !! unless updates not needed or it's nnever leave uncommented.
     // await configClaimPhases();
+    // we'll only run it via code (here, for now @ minting phase for convenience.)
+    // keeping here until we develop our dashboard to make those configurations without touching the source code.
 
     setIsClaiming(true);
-    // restrict claiming only one ERC1155 token at a time. The amount is configured by us. 
+    // restrict claiming only one ERC1155 token at a time. The amount is configured by us.
     // for now, keeping textInput below and amount @ useState commented. we'll extract them to components later.
     await editionDrop.claimTo(address, 0, 1);
     setIsClaiming(false);
+    setJustClaimed(true);
     setDisplayInfoToast(true);
   }
 
@@ -175,9 +210,12 @@ export default function Airdrop() {
         // align="stretch"
         gap="xxsmall"
       >
-        <Text alignSelf="start" size="large">
-          SUMMERJAM
-        </Text>
+        <Box direction="row" gap="medium">
+          <Text alignSelf="start" size="large">
+            SUMMERJAM
+          </Text>
+          <Validate size="medium" />
+        </Box>
         <Heading textAlign="start" size="small">
           Metaverse has never been this delightful
         </Heading>
@@ -188,38 +226,33 @@ export default function Airdrop() {
           <br></br> <br></br> Exclusive limited edition of 50 summer jams in
           three delightful varieties.
         </Paragraph>
-     
-          <Text> X/Y minted.</Text>
 
-        {isClaiming ? <Spinner /> : null}
-        {isClaiming ? <Button label="minting" disabled={true} /> : 
-            <Button label="mint" disabled={false} onClick={() => claimNFT()} />
-          }
+        {!isClaiming && !justClaimed ? (
+          <>
+            <Text size="large" margin={"small"}>
+              {" "}
+              X/50 minted.
+            </Text>
+            <Button
+              label="mint"
+              size="large"
+              disabled={false}
+              onClick={() => claimNFT()}
+            />
+          </>
+        ) : null}
+        {isClaiming ? <Spinner size="large" alignSelf="center" /> : null}
+
+        {!isClaiming && justClaimed ? (
+          <Button
+            label="mint another"
+            size="large"
+            disabled={false}
+            onClick={() => claimNFT()}
+          />
+        ) : null}
         {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
-        {address ? (
-          <Box gap="small">
-            {/* <TextInput
-            placeholder={"number of tokens to mint"}
-            value={amount}
-            onChange={(event) => setAmount(event.target.value)}
-          /> */}
-
-          {/* {isClaiming ? <Button label="minting" disabled={true} /> : 
-            <Button label="mint" disabled={false} onClick={() => claimNFT()} />
-          } */}
-            
-            
-            {displayInfoToast ? (
-              <Notification
-                background="#1a161c"
-                toast
-                title="Your NFT is on the way!"
-                message="Please check your wallet, it should be there by now."
-                onClose={() => setDisplayInfoToast(false)}
-              />
-            ) : null}
-          </Box>
-        ) : (
+        {!isClaiming && !address ? (
           <>
             <Button
               onClick={connectWithMetamask}
@@ -227,10 +260,21 @@ export default function Airdrop() {
               active={false}
               color={"black"}
               label="Connect Wallet"
+              size="large"
             />
-            <Button label="Claim NFT" disabled={true} />
+            <Button size="large" label="Claim NFT" disabled={true} />
           </>
-        )}
+        ) : null}
+
+        {displayInfoToast ? (
+          <Notification
+            toast
+            background="#1a161c"
+            title="You've got a SUMMERJAM NFT!"
+            message="Please check your wallet, it should be there by now."
+            onClose={() => setDisplayInfoToast(false)}
+          />
+        ) : null}
       </Card>
     </Box>
   );
