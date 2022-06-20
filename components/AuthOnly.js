@@ -14,9 +14,6 @@ import Airdrop from "./Airdrop";
 import { ChainId } from "@thirdweb-dev/react";
 
 import {
-  Image,
-  Spinner,
-  Card,
   Box,
   Button,
   Text,
