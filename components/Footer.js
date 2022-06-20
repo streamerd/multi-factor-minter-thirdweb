@@ -29,7 +29,7 @@ export const AlphaFooter = () => {
             <Text size="large" textAlign="start" weight="bold">
               JUSTADDMETA
             </Text>
-            <Text size="small" textAlign="start">
+            <Text size="small" textAlign="start" weight={"bolder"}>
               We enable your brand to <br></br> make a sustainable contribution{" "}
               <br></br> to the metaverse.
             </Text>

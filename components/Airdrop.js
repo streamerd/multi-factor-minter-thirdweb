@@ -119,9 +119,9 @@ export default function Airdrop() {
     const claimConditions = [
       {
         startTime: saleStartTime, // start the presale now
-        maxQuantity: 150, // limit how many mints for this presale
-        price: 0, // presale price
-        snapshot: ["0xF2Bb8DCD9c246c03a42b029942DDD92Dd0Ea2302"], // limit minting to only certain addresses
+        maxQuantity: 250, // limit how many mints for this test minting. (in rinkeby, its for community to test: max 250 for this edition)
+        price: 0, // sale price
+        snapshot: ["0xF2Bb8DCD9c246c03a42b029942DDD92Dd0Ea2302", "0xfac0475b677b54f72682E0EA633Ffa1088110dcf", "0xeA718966A209c5244D8Ad686560a97F29381a84F"], // limit minting to only certain addresses
       },
     ];
 
@@ -143,9 +143,11 @@ export default function Airdrop() {
       return;
     }
 
-    // just once
+
+    // just once, from time to time. just run it locally, 
+    //don't deploy uncommented for a while, until we develop our dashboard.
     // await lazyMint();
-    //  await configClaimPhases();
+      //await configClaimPhases();
 
     setIsClaiming(true);
     await editionDrop.claimTo(address, 0, 1);
@@ -175,11 +177,11 @@ export default function Airdrop() {
         <Heading textAlign="start" size="small">
           Metaverse has never been this delightful
         </Heading>
-        <Paragraph textAlign="start">
+        <Paragraph textAlign="start" size="large">
           Remarkable virtual craftsmanship meets ostentatious yet familiar
           design. Ingredients from a different dimension and extravagant hints
           of fruits suiting everyone&apos;s palate.
-          <br></br> <br></br> Exclusive edition of 50 limited edition summer
+          <br></br> <br></br> Exclusive limited edition of 50 summer
           jams in three delightful varieties.
         </Paragraph>
         {isClaiming ? <Spinner /> : null}
@@ -187,7 +189,8 @@ export default function Airdrop() {
         {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
         {address ? (
           <Box gap="small">
-            <Text> 10/50 </Text>
+
+            <Text> X/50 minted.</Text>
             {/* <TextInput
             placeholder={{}}
             value={amount}

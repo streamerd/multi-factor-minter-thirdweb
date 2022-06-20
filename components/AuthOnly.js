@@ -32,6 +32,11 @@ export default function AuthOnly() {
 
   const [mintingStarted, setMintingStarted] = useState(false);
  
+  if (isOnWrongNetwork) {
+    switchNetwork(ChainId.Rinkeby);
+    return;
+  }
+
   return (
     <Box align="center" justify="center" background={"black"}>
       {/* <Card
@@ -82,7 +87,7 @@ export default function AuthOnly() {
           {address && !mintingStarted ? (
             <>
              <Heading size="small" textAlign="center">
-            AUTHORIZED <br></br> ACCESS ONLY
+            AUTHORIZED <br></br> SUCCESSFULLY
           </Heading> 
 
           <Paragraph textAlign="center">

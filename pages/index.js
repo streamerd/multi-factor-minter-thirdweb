@@ -68,6 +68,7 @@ export default function Home() {
             align="end"
             pad={"large"}
           >
+
             <Image src="https://i.imgur.com/48dRmwN.png" width={"460px"} height={"500px"}></Image>
           </Box>
           <Box width={"50%"} background="black" pad={"32px"} justify="center">
