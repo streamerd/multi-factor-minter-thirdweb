@@ -219,7 +219,7 @@ export default function Airdrop() {
       // overflow="auto"
       align="center"
       flex="grow"
-      pad="large"
+      pad="medium"
     >
       <Card
         pad="medium"
@@ -236,7 +236,7 @@ export default function Airdrop() {
             <Validate size="medium" />
           </Box>
 
-          {!isClaiming && !justClaimed ? (
+          {address && !isClaiming && !justClaimed ? (
             <>
               <Heading textAlign="start" size="small">
                 Metaverse has never been this delightful
@@ -245,13 +245,25 @@ export default function Airdrop() {
                 Remarkable virtual craftsmanship meets ostentatious yet familiar
                 design. Ingredients from a different dimension and extravagant
                 hints of fruits suiting everyone&apos;s palate.
-                <br></br> <br></br> Exclusive limited edition of 50 summer jams
+                
+              </Paragraph>
+
+              <Paragraph textAlign="start" size="large">
+               Exclusive limited edition of 50 summer jams
                 in three delightful varieties.
               </Paragraph>
-              <Text size="large" margin={"small"}>
+
+              <Paragraph textAlign="center" size="large">
+                             X/50 minted
+
+              </Paragraph>
+              {/* <Paragraph textAlign="center" size="large">
+              X/50 minted
+              </Paragraph> */}
+              {/* <Text size="large" margin={"xsmall"}>
                 {" "}
-                X/50 minted.
-              </Text>
+                
+              </Text> */}
               <Button
                 label="mint"
                 size="large"
