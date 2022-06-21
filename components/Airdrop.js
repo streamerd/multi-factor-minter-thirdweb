@@ -122,7 +122,9 @@ export default function Airdrop() {
 
   const configClaimPhases = async () => {
     const saleStartTime = new Date();
-    const claimConditions = [
+
+    let tokenId = null;
+    const claimConditionsJAM0 = [
       {
         startTime: saleStartTime, // start the presale now
         maxQuantity: 1000, // limit how many mints for this test minting. for now it's 250 @ rinkeby.
@@ -135,8 +137,24 @@ export default function Airdrop() {
       },
     ];
 
-    const tokenId = 0; // the id of the NFT to set claim conditions on
-    await editionDrop.claimConditions.set(tokenId, claimConditions);
+    tokenId = 0; // the id of the NFT to set claim conditions on
+    await editionDrop.claimConditions.set(tokenId, claimConditionsJAM0);
+
+    const claimConditionsJAM1 = [
+      {
+        startTime: saleStartTime, // start the presale now
+        maxQuantity: 1000, // limit how many mints for this test minting. for now it's 250 @ rinkeby.
+        price: 0, // sale price
+        snapshot: [
+          "0xF2Bb8DCD9c246c03a42b029942DDD92Dd0Ea2302",
+          "0xfac0475b677b54f72682E0EA633Ffa1088110dcf",
+          "0xeA718966A209c5244D8Ad686560a97F29381a84F",
+        ], // limit minting to only certain addresses
+      },
+    ];
+
+    tokenId = 1;
+    await editionDrop.claimConditions.set(tokenId, claimConditionsJAM1);
   };
 
   const claimProcessWindow = () => {
@@ -189,7 +207,7 @@ export default function Airdrop() {
     setIsClaiming(true);
     // restrict claiming only one ERC1155 token at a time. The amount is configured by us.
     // for now, keeping textInput below and amount @ useState commented. we'll extract them to components later.
-    await editionDrop.claimTo(address, 0, 1);
+    await editionDrop.claimTo(address, 1, 1);
     setIsClaiming(false);
     setJustClaimed(true);
     setDisplayInfoToast(true);
@@ -210,105 +228,97 @@ export default function Airdrop() {
         // align="stretch"
         gap="xxsmall"
       >
-      <CardBody pad="medium" gap="medium">
-      <Box direction="row" gap="medium">
-          <Text alignSelf="start" size="large">
-            SUMMERJAM
-          </Text>
-          <Validate size="medium" />
-        </Box>
-   
-
-
-        {!isClaiming && !justClaimed ? (
-          <>
-               <Heading textAlign="start" size="small">
-          Metaverse has never been this delightful
-        </Heading>
-              <Paragraph textAlign="start" size="large">
-          Remarkable virtual craftsmanship meets ostentatious yet familiar
-          design. Ingredients from a different dimension and extravagant hints
-          of fruits suiting everyone&apos;s palate.
-          <br></br> <br></br> Exclusive limited edition of 50 summer jams in
-          three delightful varieties.
-        </Paragraph>
-            <Text size="large" margin={"small"}>
-              {" "}
-              X/50 minted.
+        <CardBody pad="medium" gap="medium">
+          <Box direction="row" gap="medium">
+            <Text alignSelf="start" size="large">
+              SUMMERJAM
             </Text>
-            <Button
-              label="mint"
-              size="large"
-              disabled={false}
-              onClick={() => claimNFT()}
-            />
-          </>
-        ) : null}
-        {isClaiming ? (
-          <Box direction="column" gap="large" margin={"medium"}>
-            <Box direction="row" gap="small" size="large">
-              <StatusGood size="large" alignSelf="center" />
-              <Text size="xxlarge"> Approve asset</Text>{" "}
-            </Box>
-            <Box direction="row" gap="small" size="large">
-              <Spinner size="medium" alignSelf="center" />
-              <Text size="xxlarge"> Confirm purchase</Text>
-            </Box>
+            <Validate size="medium" />
           </Box>
-        ) : (
-          <></>
-        )}
 
-        {!isClaiming && justClaimed ? (
-         
-         <>
-          <Box direction="column" gap="medium" >
-            <Box direction="row" gap="small" size="large">
-              <StatusGood size="large" alignSelf="center" />
-              <Text size="xxlarge"> Asset Approval</Text>{" "}
+          {!isClaiming && !justClaimed ? (
+            <>
+              <Heading textAlign="start" size="small">
+                Metaverse has never been this delightful
+              </Heading>
+              <Paragraph textAlign="start" size="large">
+                Remarkable virtual craftsmanship meets ostentatious yet familiar
+                design. Ingredients from a different dimension and extravagant
+                hints of fruits suiting everyone&apos;s palate.
+                <br></br> <br></br> Exclusive limited edition of 50 summer jams
+                in three delightful varieties.
+              </Paragraph>
+              <Text size="large" margin={"small"}>
+                {" "}
+                X/50 minted.
+              </Text>
+              <Button
+                label="mint"
+                size="large"
+                disabled={false}
+                onClick={() => claimNFT()}
+              />
+            </>
+          ) : null}
+          {isClaiming ? (
+            <Box direction="column" gap="large" margin={"medium"}>
+              <Box direction="row" gap="small" size="large">
+                <StatusGood size="large" alignSelf="center" />
+                <Text size="xxlarge"> Approve asset</Text>{" "}
+              </Box>
+              <Box direction="row" gap="small" size="large">
+                <Spinner size="medium" alignSelf="center" />
+                <Text size="xxlarge"> Confirm purchase</Text>
+              </Box>
             </Box>
-            <Box direction="row" gap="small" size="large">
-              <StatusGood size="large" alignSelf="center" />
-              <Text size="xxlarge"> Asset Purchase </Text>
-            </Box>
-            {/* <Box direction="row" gap="small" size="large">
+          ) : (
+            <></>
+          )}
+
+          {!isClaiming && justClaimed ? (
+            <>
+              <Box direction="column" gap="medium">
+                <Box direction="row" gap="small" size="large">
+                  <StatusGood size="large" alignSelf="center" />
+                  <Text size="xxlarge"> Asset Approval</Text>{" "}
+                </Box>
+                <Box direction="row" gap="small" size="large">
+                  <StatusGood size="large" alignSelf="center" />
+                  <Text size="xxlarge"> Asset Purchase </Text>
+                </Box>
+                {/* <Box direction="row" gap="small" size="large">
               <StatusGood size="medium" alignSelf="center" />
               <Text size="xxlarge"> Minted</Text>
             </Box> */}
-          </Box>
-         
-          </>
-        ) : null}
-        {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
-        {!isClaiming && !address ? (
-          <>
+              </Box>
+            </>
+          ) : null}
+          {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
+          {!isClaiming && !address ? (
+            <>
+              <Button
+                onClick={connectWithMetamask}
+                disabled={false}
+                active={false}
+                color={"black"}
+                label="Connect Wallet"
+                size="large"
+              />
+              <Button size="large" label="Claim NFT" disabled={true} />
+            </>
+          ) : null}
 
-          
-            <Button
-              onClick={connectWithMetamask}
-              disabled={false}
-              active={false}
-              color={"black"}
-              label="Connect Wallet"
-              size="large"
+          {displayInfoToast ? (
+            <Notification
+              toast
+              background="#1a161c"
+              title="You've got a SUMMERJAM NFT!"
+              message="Please check your wallet, it should be there by now."
+              onClose={() => setDisplayInfoToast(false)}
             />
-            <Button size="large" label="Claim NFT" disabled={true} />
-          </>
-        ) : null}
-
-        {displayInfoToast ? (
-          <Notification
-            toast
-            background="#1a161c"
-            title="You've got a SUMMERJAM NFT!"
-            message="Please check your wallet, it should be there by now."
-            onClose={() => setDisplayInfoToast(false)}
-          />
-        ) : null}
-      </CardBody>
-      <CardFooter pad={"medium"}>
-     
-      </CardFooter>
+          ) : null}
+        </CardBody>
+        <CardFooter pad={"medium"}></CardFooter>
       </Card>
     </Box>
   );
