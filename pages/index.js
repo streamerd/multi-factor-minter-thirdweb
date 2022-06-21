@@ -168,8 +168,14 @@ export default function Home() {
 
           <Box align="stretch">
             <Box direction="row" gap="small" pad={"xsmall"}>
-              <Button color={"white"} label="mint" size="large" />
-              <Button color={"white"} label="claim" size="large" />
+              
+              {address ? (
+              <Button color={"white"}  active label="mint" size="large" />
+              ) : (
+                <Button color={"white"}  label="mint" size="large" />
+                )}
+
+              <Button  color={"white"} label="claim physical" size="large" />
               <Button color={"white"} label="burn" size="large" />
               {address ? (
                 <Button color={"green"} label="connected" onClick={() => disconnectWallet()} size="large" />
