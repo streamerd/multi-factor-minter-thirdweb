@@ -210,25 +210,28 @@ export default function Airdrop() {
         // align="stretch"
         gap="xxsmall"
       >
-        <Box direction="row" gap="medium">
+      <CardBody pad="medium" gap="medium">
+      <Box direction="row" gap="medium">
           <Text alignSelf="start" size="large">
             SUMMERJAM
           </Text>
           <Validate size="medium" />
         </Box>
-        <Heading textAlign="start" size="small">
+   
+
+
+        {!isClaiming && !justClaimed ? (
+          <>
+               <Heading textAlign="start" size="small">
           Metaverse has never been this delightful
         </Heading>
-        <Paragraph textAlign="start" size="large">
+              <Paragraph textAlign="start" size="large">
           Remarkable virtual craftsmanship meets ostentatious yet familiar
           design. Ingredients from a different dimension and extravagant hints
           of fruits suiting everyone&apos;s palate.
           <br></br> <br></br> Exclusive limited edition of 50 summer jams in
           three delightful varieties.
         </Paragraph>
-
-        {!isClaiming && !justClaimed ? (
-          <>
             <Text size="large" margin={"small"}>
               {" "}
               X/50 minted.
@@ -241,19 +244,46 @@ export default function Airdrop() {
             />
           </>
         ) : null}
-        {isClaiming ? <Spinner size="large" alignSelf="center" /> : null}
+        {isClaiming ? (
+          <Box direction="column" gap="large" margin={"medium"}>
+            <Box direction="row" gap="small" size="large">
+              <StatusGood size="large" alignSelf="center" />
+              <Text size="xxlarge"> Approve asset</Text>{" "}
+            </Box>
+            <Box direction="row" gap="small" size="large">
+              <Spinner size="medium" alignSelf="center" />
+              <Text size="xxlarge"> Confirm purchase</Text>
+            </Box>
+          </Box>
+        ) : (
+          <></>
+        )}
 
         {!isClaiming && justClaimed ? (
-          <Button
-            label="mint another"
-            size="large"
-            disabled={false}
-            onClick={() => claimNFT()}
-          />
+         
+         <>
+          <Box direction="column" gap="medium" >
+            <Box direction="row" gap="small" size="large">
+              <StatusGood size="large" alignSelf="center" />
+              <Text size="xxlarge"> Asset Approval</Text>{" "}
+            </Box>
+            <Box direction="row" gap="small" size="large">
+              <StatusGood size="large" alignSelf="center" />
+              <Text size="xxlarge"> Asset Purchase </Text>
+            </Box>
+            {/* <Box direction="row" gap="small" size="large">
+              <StatusGood size="medium" alignSelf="center" />
+              <Text size="xxlarge"> Minted</Text>
+            </Box> */}
+          </Box>
+         
+          </>
         ) : null}
         {/* <Button label="Connect Wallet" disabled={false} active={false} primary /> */}
         {!isClaiming && !address ? (
           <>
+
+          
             <Button
               onClick={connectWithMetamask}
               disabled={false}
@@ -275,6 +305,10 @@ export default function Airdrop() {
             onClose={() => setDisplayInfoToast(false)}
           />
         ) : null}
+      </CardBody>
+      <CardFooter pad={"medium"}>
+     
+      </CardFooter>
       </Card>
     </Box>
   );
